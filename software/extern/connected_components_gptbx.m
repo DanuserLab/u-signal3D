@@ -1,0 +1,49 @@
+function [C,CF] = connected_components_gptbx(F)
+  % CONNECTED_COMPONENTS Determine the connected components of a mesh described
+  % by the simplex list F. Components are determined with respect to the edges of
+  % the mesh. That is, a single component may contain non-manifold edges and
+  % vertices.
+  %
+  % C = connected_components(F)
+  %
+  % Inputs:
+  %   F  #F by simplex-size list of simplices
+  % Outputs:
+  %   C  #V list of ids for each CC 
+  %   CF  #F list of ids for each CC
+  % 
+  % Examples:
+  %  trisurf(F,V(:,1),V(:,2),V(:,3), ...
+  %    connected_components([F;repmat(size(V,1),1,3)]));
+%
+% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+%
+% This file is part of uSignal3DPackage.
+% 
+% uSignal3DPackage is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% uSignal3DPackage is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with uSignal3DPackage.  If not, see <http://www.gnu.org/licenses/>.
+% 
+% 
+
+  %from gptoolbox https://github.com/alecjacobson/gptoolbox
+%  renamed by HMF Danuserlab2022
+%  renamed from connected_components_gptoolbox to connected_components_gptbx to avoid CI build issue. By Qiongjing (Jenny) Zou, June 2022
+
+  % build adjacency list
+  A = adjacency_matrix(F);
+  [~,C] = conncomp_gptbx(A);
+  if nargout > 1 
+      CF = C(F(:,1));
+  end
+
+end
