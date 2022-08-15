@@ -31,9 +31,13 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D image and 
 1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example image](https://cloud.biohpc.swmed.edu/index.php/s/6ZxQwsKk745Xf76/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” button in MATLAB. 
 2.	Open [*runUSignal3Dimage3D.m*](https://github.com/DanuserLab/u-signal3D/scripts/runUSignal3Dimage3D.m), the script that analyzes the PI3K-labeled cell, by typing `edit runUSignal3Dimage3D` in MATLAB’s command window.  
 3.	In the set directories section of the m-file, set the paths for
-a.	imageDirectory – the directory of the provided PI3K-labeled cell. 
-b.	psfDirectory – the directory for provided corresponding microscopy. 
-c.	saveDirectory – the directory where output will be saved. 
+
+    a.	imageDirectory – the directory of the provided PI3K-labeled cell.
+
+    b.	psfDirectory – the directory for provided corresponding microscopy.
+
+    c.	saveDirectory – the directory where output will be saved.
+
 4.	Save the m-file and run it by typing `runUSignal3Dimage3D` in MATLAB’s command window. Note that a pool for parallel processing will likely open. You can control the parallel processing before running the m-file through MATLAB/home/Preferences/Parallel Computing Toolbox.
 
 
