@@ -29,7 +29,7 @@ The package comprises the following processes,
 
 This example shows how to apply the Laplace-Beltrami operator to a 3D image and generate the energy spectra of molecular fluorescence intensity near the cell membrane. 
 1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example image](https://cloud.biohpc.swmed.edu/index.php/s/6ZxQwsKk745Xf76/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” button in MATLAB. 
-2.	Open [*runUSignal3Dimage3D.m*](https://github.com/DanuserLab/u-signal3D/scripts/runUSignal3Dimage3D.m), the script that analyzes the PI3K-labeled cell, by typing `edit runUSignal3Dimage3D` in MATLAB’s command window.  
+2.	Open [*runUSignal3Dimage3D.m*](https://github.com/DanuserLab/u-signal3D/blob/master/scripts/runUSignal3Dimage3D.m), the script that analyzes the PI3K-labeled cell, by typing `edit runUSignal3Dimage3D` in MATLAB’s command window.  
 3.	In the set directories section of the m-file, set the paths for
 
     a.	imageDirectory – the directory of the provided PI3K-labeled cell.
