@@ -43,5 +43,5 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D image and 
 
 **Reference**
 
-[^1]: Driscoll, M. K. et al. [Robust and automated detection of subcellular morphological motifs in 3D microscopy images](https://doi.org:10.1038/s41592-019-0539-z). *Nature Methods* 16, 1037-1044 (2019). 
+[^1]: Driscoll, M. K. et al. [Robust and automated detection of subcellular morphological motifs in 3D microscopy images](https://www.nature.com/articles/s41592-019-0539-z). *Nature Methods* 16, 1037-1044 (2019). 
 
