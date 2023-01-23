@@ -15,7 +15,7 @@ function writeOBJ(filename, V,F,UV,C,TF,N,NF)
 % external function from
 % https://github.com/paigautam/CVPR21_FastSinkhornFilters/blob/main/utils/%2BMESH/%2BMESH_IO/writeOBJ.m
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

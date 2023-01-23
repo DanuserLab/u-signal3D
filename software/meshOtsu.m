@@ -2,7 +2,7 @@ function [surface, image3D, level] = meshOtsu(image3D, scaleOtsu)
 
 % meshOtsu - creates an isosurface by Otsu thresholding
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

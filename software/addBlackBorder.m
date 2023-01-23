@@ -2,7 +2,7 @@ function image3DLarge = addBlackBorder(image3D, width)
 
 % addBlackBorder - adds a black border of specified width to a 3D image
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

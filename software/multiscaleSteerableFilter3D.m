@@ -2,7 +2,7 @@ function [res, nms, theta, scale] = multiscaleSteerableFilter3D(image3D, type, s
 
 % multiscaleSteerableFilter3D - 3D steerable filters across the specified scales
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

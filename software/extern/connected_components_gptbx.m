@@ -16,7 +16,7 @@ function [C,CF] = connected_components_gptbx(F)
   %  trisurf(F,V(:,1),V(:,2),V(:,3), ...
   %    connected_components([F;repmat(size(V,1),1,3)]));
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

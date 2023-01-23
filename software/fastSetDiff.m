@@ -3,7 +3,7 @@ function C = fastSetDiff(A,B)
 % fastSetDiff - A faster version of Matlab's builtin setdiff that only works on positive integers
 % (from http://www.mathworks.com/matlabcentral/answers/53796-speed-up-intersect-setdiff-functions)
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

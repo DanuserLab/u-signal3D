@@ -22,7 +22,7 @@ function [ xml ] = getXML( reader, castToChar)
 %
 % See also showMetadata, getMetadataStore, xmlread
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

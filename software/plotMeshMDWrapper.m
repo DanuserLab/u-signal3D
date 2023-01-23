@@ -5,7 +5,7 @@ function [meshHandle, figHandle] = plotMeshMDWrapper(dataIn, varargin)
 % also see: plotMeshMD.m
 % Andrew R. Jamieson, July 2018
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 
