@@ -306,8 +306,11 @@ function pushbutton_prepare_Callback(hObject, eventdata, handles)
 userData = get(handles.figure1, 'UserData');
 % if preparation GUI exist, delete it
 if ishandle(userData.newFig), delete(userData.newFig); end
-if ~isempty(userData.MD) && isempty(userData.ImD)
+if isempty(userData.ImD)
 userData.newFig = dataPreparationGUI('mainFig',handles.figure1);
+else
+   warndlg('Please remove the ImageData structure then click Prepare again.', 'Movie Selector', 'modal')
+   return
 end
 set(handles.figure1,'UserData',userData);
 
