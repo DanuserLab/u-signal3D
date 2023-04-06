@@ -1,19 +1,20 @@
-function copyright = getLCCBCopyright()
+function isIt = istransform(xFormIn)
+%ISTRANSFORM checks if the input variable is an image toolbox image transform
 %
-% This is a user-defined function used in UTSW software. 
-% It is called when any GUI is generated. It configures the copyright
-% information.
-%
-% Input: 
-%
-%
+% isIt = istransform(xFormIn)
+% 
+% 
+% Input:
+%   
+%   xFormIn - The variable to be tested.
+% 
 % Output:
+% 
+%  iIt - True if the input xFormIn was an Image Processing Toolbox
+%  transform, and false otherwise.
+% 
+% Hunter Elliott
 %
-%   copyright - String: copyright and version information
-%
-% Chuangang Ren, 11/2010
-% Sebastien Besson, Feb 2013
-% Andrew Jamieson, Nov 2016 - UTSW
 %
 % Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
@@ -34,7 +35,11 @@ function copyright = getLCCBCopyright()
 % 
 % 
 
-% Set year and version information
-str_year = datestr(date,'YYYY');
-copyright = sprintf('Copyright %s Danuser Lab - UTSouthwestern', str_year);
-% -- TEST CI pipeline deploy to GITHUB -- CI pipeline build # 170114
+if isfield(xFormIn,'ndims_in') && isfield(xFormIn,'ndims_out') && isfield(xFormIn,'forward_fcn') && isfield(xFormIn,'inverse_fcn')...
+        && isfield(xFormIn,'tdata')
+    
+    isIt = true;
+    
+else
+    isIt = false;
+end

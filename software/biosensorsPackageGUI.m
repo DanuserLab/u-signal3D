@@ -1,19 +1,9 @@
-function copyright = getLCCBCopyright()
+function varargout = biosensorsPackageGUI(varargin)
+% Launch the GUI for the Biosensors Package
 %
-% This is a user-defined function used in UTSW software. 
-% It is called when any GUI is generated. It configures the copyright
-% information.
+% This function calls the generic packageGUI function, passes all its input
+% arguments and returns all output arguments of packageGUI
 %
-% Input: 
-%
-%
-% Output:
-%
-%   copyright - String: copyright and version information
-%
-% Chuangang Ren, 11/2010
-% Sebastien Besson, Feb 2013
-% Andrew Jamieson, Nov 2016 - UTSW
 %
 % Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
@@ -34,7 +24,14 @@ function copyright = getLCCBCopyright()
 % 
 % 
 
-% Set year and version information
-str_year = datestr(date,'YYYY');
-copyright = sprintf('Copyright %s Danuser Lab - UTSouthwestern', str_year);
-% -- TEST CI pipeline deploy to GITHUB -- CI pipeline build # 170114
+% Sebastien Besson 5/2011
+
+
+if nargin>0 && isa(varargin{1},'MovieList')
+    varargout{1} = packageGUI('BiosensorsPackage',...
+        [varargin{1}.getMovies{:}],varargin{2:end},'ML',varargin{1});
+else
+    varargout{1} = packageGUI('BiosensorsPackage',varargin{:});
+end
+
+end
