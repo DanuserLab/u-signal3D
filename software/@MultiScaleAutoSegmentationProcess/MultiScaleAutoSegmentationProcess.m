@@ -83,8 +83,10 @@ classdef MultiScaleAutoSegmentationProcess < SegmentationProcess
 
             funParams.useSummationChannel = 0; % if true, then do msa seg on the output of summation channel.
 
+            funParams.numVotes = -1; %tightness and numVotes are exclusive options: if one is chosen, the other is inactive (-1); 
+                                    % If numVotes chosen, default is 22, value range is 0<= x <= 42. x should be an integer.
+
             %% extra parameters not on GUI:
-            funParams.numVotes = -1;
             funParams.imagesOut = 1;
             funParams.figVisible = 'on';
             funParams.MinimumSize = 10; % unit is pixel

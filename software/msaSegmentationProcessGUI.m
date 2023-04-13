@@ -79,15 +79,29 @@ funParams = userData.crtProc.funParams_;
 
 if funParams.tightness == -1
     handles.tightness_checkbox.Value = 0;
-    handles.tightness_panel.Visible = 'off';
+    handles.tightness_slider.Enable = 'off';
     handles.tightness_slider.Value = .5;
+    handles.tightness_display.String = 'Inactive';
+    handles.tightness_display.Enable = 'off';
 elseif funParams.tightness <=1 && funParams.tightness >= 0
     handles.tightness_checkbox.Value = 1;
-    handles.tightness_panel.Visible = 'on';
+    handles.tightness_slider.Enable = 'on';
     handles.tightness_slider.Value = funParams.tightness;
+    handles.tightness_display.String = num2str(handles.tightness_slider.Value);
 end
-handles.tightness_display.String = num2str(handles.tightness_slider.Value);
 
+if funParams.numVotes == -1
+    handles.numVotes_checkbox.Value = 0;
+    handles.numVotes_slider.Enable = 'off';
+    handles.numVotes_slider.Value = 22;
+    handles.numVotes_display.String = 'Inactive';
+    handles.numVotes_display.Enable = 'off';
+elseif funParams.numVotes <=42 && funParams.numVotes >= 0
+    handles.numVotes_checkbox.Value = 1;
+    handles.numVotes_slider.Enable = 'on';
+    handles.numVotes_slider.Value = funParams.numVotes;
+    handles.numVotes_display.String = num2str(handles.numVotes_slider.Value);
+end
 
 set(handles.edit_ObjectNumber, 'String',num2str(funParams.ObjectNumber))
 set(handles.edit_finalRefinementRadius, 'String',num2str(funParams.finalRefinementRadius))
@@ -205,9 +219,15 @@ funParams.ObjectNumber = str2double(get(handles.edit_ObjectNumber, 'String'));
 funParams.finalRefinementRadius = str2double(get(handles.edit_finalRefinementRadius, 'String'));
 
 if handles.tightness_checkbox.Value == 1
-    funParams.tightness = handles.tightness_slider.Value;
+    funParams.tightness = str2double(handles.tightness_display.String);
 else
     funParams.tightness = -1;
+end
+
+if handles.numVotes_checkbox.Value == 1
+    funParams.numVotes = str2double(handles.numVotes_display.String);
+else
+    funParams.numVotes = -1;
 end
 
 % Retrieve GenerateSummationChannelProcess index
@@ -234,13 +254,13 @@ if strcmp(eventdata.Key, 'return')
     pushbutton_done_Callback(handles.pushbutton_done, [], handles);
 end
 
-% --- Executes on button press in tightness_checkbox.
+% --- Executes on button press in useSummationChannel_checkbox.
 function checkbox_useSummationChannel_Callback(hObject, eventdata, handles)
-% hObject    handle to tightness_checkbox (see GCBO)
+% hObject    handle to useSummationChannel_checkbox (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of tightness_checkbox
+% Hint: get(hObject,'Value') returns toggle state of useSummationChannel_checkbox
 if handles.checkbox_useSummationChannel.Value == 0
     handles.text_GenerateSummationChannelProcess.Enable = 'off';
     handles.popupmenu_ProcessIndex.Enable = 'off';
@@ -257,11 +277,50 @@ function tightness_checkbox_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of tightness_checkbox
 if handles.tightness_checkbox.Value == 0
-    handles.tightness_panel.Visible = 'off';
-    handles.tightness_display.String = num2str(-1);
+    handles.tightness_slider.Enable = 'off';
+    handles.tightness_display.String = 'Inactive';
+    handles.tightness_display.Enable = 'off';
+    
+    handles.numVotes_checkbox.Value = 1;
+    handles.numVotes_slider.Enable = 'on';
+    handles.numVotes_display.String = num2str(handles.numVotes_slider.Value);
+    handles.numVotes_display.Enable = 'on';
 else
-    handles.tightness_panel.Visible = 'on';
+    handles.tightness_slider.Enable = 'on';
     handles.tightness_display.String = num2str(handles.tightness_slider.Value);
+    handles.tightness_display.Enable = 'on';
+
+    handles.numVotes_checkbox.Value = 0;
+    handles.numVotes_slider.Enable = 'off';
+    handles.numVotes_display.String = 'Inactive';
+    handles.numVotes_display.Enable = 'off';
+end
+
+% --- Executes on button press in numVotes_checkbox.
+function numVotes_checkbox_Callback(hObject, eventdata, handles)
+% hObject    handle to numVotes_checkbox (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of numVotes_checkbox
+if handles.numVotes_checkbox.Value == 0
+    handles.numVotes_slider.Enable = 'off';
+    handles.numVotes_display.String = 'Inactive';
+    handles.numVotes_display.Enable = 'off';
+
+    handles.tightness_checkbox.Value = 1;
+    handles.tightness_slider.Enable = 'on';
+    handles.tightness_display.String = num2str(handles.tightness_slider.Value);
+    handles.tightness_display.Enable = 'on';
+else
+    handles.numVotes_slider.Enable = 'on';
+    handles.numVotes_display.String = num2str(handles.numVotes_slider.Value);
+    handles.numVotes_display.Enable = 'on';
+
+    handles.tightness_checkbox.Value = 0;
+    handles.tightness_slider.Enable = 'off';
+    handles.tightness_display.String = 'Inactive';
+    handles.tightness_display.Enable = 'off';
 end
 
 % --- Executes on selection change in popupmenu_ProcessIndex.
@@ -316,7 +375,7 @@ function tightness_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-handles.tightness_display.String = num2str(handles.tightness_slider.Value);
+handles.tightness_display.String = num2str(round((handles.tightness_slider.Value)*10)/10); % round tightness to 0.1 per step when drag slider
 
 
 % --- Executes during object creation, after setting all properties.
@@ -331,3 +390,27 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
 end
 handles.tightness_slider.Value = .5;
 
+
+
+% --- Executes on numVotes slider movement.
+function numVotes_slider_Callback(hObject, eventdata, handles)
+% hObject    handle to numVotes_slider (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+handles.numVotes_display.String = num2str(round(handles.numVotes_slider.Value)); % round numVotes to 1 per step when drag slider
+
+
+% --- Executes during object creation, after setting all properties.
+function numVotes_slider_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to numVotes_slider (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+handles.numVotes_slider.Value = 22;
