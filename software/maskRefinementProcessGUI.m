@@ -73,6 +73,20 @@ userData = get(handles.figure1, 'UserData');
 if isempty(userData), userData = struct(); end
 funParams = userData.crtProc.funParams_;
 
+% set GUI with Parameters
+segProc =  cellfun(@(x) isa(x,'MaskProcess'),userData.MD.processes_);
+segProcID=find(segProc);
+segProcNames = cellfun(@(x) x.getName(),userData.MD.processes_(segProc),'Unif',false);
+segProcString = vertcat('Choose later',segProcNames(:));
+segProcData=horzcat({[]},num2cell(segProcID));
+segProcValue = find(cellfun(@(x) isequal(x,funParams.SegProcessIndex),segProcData));
+if isempty(segProcValue), segProcValue = 1; end
+set(handles.popupmenu_SegProcessIndex,'String',segProcString,...
+    'UserData',segProcData,'Value',segProcValue);
+
+% Update channels listboxes depending on the selected process
+popupmenu_SegProcessIndex_Callback(hObject, eventdata, handles)
+
 if funParams.MaskCleanUp
     if ~funParams.FillHoles
         set(handles.checkbox_fillholes, 'Value', 0)
@@ -226,8 +240,19 @@ else
     funParams.EdgeRefinement = false;
 end
 
+% Retrieve mask process index and class (for propagation)
+props=get(handles.popupmenu_SegProcessIndex,{'UserData','Value'});
+funParams.SegProcessIndex = props{1}{props{2}};
+if ~isempty(funParams.SegProcessIndex)
+    segProcessClass=class(userData.MD.processes_{funParams.SegProcessIndex});
+else
+    segProcessClass = '';
+end
+
 % Set parameters and update main window
-processGUI_ApplyFcn(hObject, eventdata, handles,funParams);
+setMaskProcess = @(x) parseProcessParams(x, struct('SegProcessIndex',...
+    x.owner_.getProcessIndex(segProcessClass,1,false)));
+processGUI_ApplyFcn(hObject, eventdata, handles,funParams,'settingFcn',{setMaskProcess});
 
 
 % --- Executes on button press in checkbox_cleanup.
@@ -298,3 +323,46 @@ function checkbox_FillBoundaryHoles_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of checkbox_FillBoundaryHoles
+
+
+% --- Executes on selection change in popupmenu_SegProcessIndex.
+function popupmenu_SegProcessIndex_Callback(hObject, eventdata, handles)
+
+% Retrieve selected process ID
+props= get(handles.popupmenu_SegProcessIndex,{'UserData','Value'});
+procID = props{1}{props{2}};
+
+% Read process and check available channels
+userData = get(handles.figure1, 'UserData');
+if isempty(userData), userData = struct(); end
+if isempty(procID)
+    allChannelIndex=1:numel(userData.MD.channels_);
+else
+    allChannelIndex = find(userData.MD.processes_{procID}.checkChannelOutput);
+end
+
+% Set up available channels listbox
+if ~isempty(allChannelIndex)
+    if isempty(procID)
+        channelString = userData.MD.getChannelPaths(allChannelIndex);
+    else
+        channelString = userData.MD.processes_{procID}.outFilePaths_(1,allChannelIndex);
+    end
+else
+    channelString = {};
+end
+set(handles.listbox_availableChannels,'String',channelString,'UserData',allChannelIndex);
+
+% Set up selected channels listbox
+channelIndex = get(handles.listbox_selectedChannels, 'UserData');
+channelIndex = intersect(channelIndex,allChannelIndex);
+if ~isempty(channelIndex)
+    if isempty(procID)
+        channelString = userData.MD.getChannelPaths(channelIndex);
+    else
+        channelString = userData.MD.processes_{procID}.outFilePaths_(1,channelIndex);
+    end
+else
+    channelString = {};
+end
+set(handles.listbox_selectedChannels,'String',channelString,'UserData',channelIndex);
