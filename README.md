@@ -4,7 +4,7 @@
 
 **Publication**
 
-The mathematical approach of the u-signal3D package is described in this paper, [***Cellular harmonics for the morphology-invariant analysis of molecular organization at the cell surface***](https://doi.org/10.1101/2022.08.17.504332).
+The mathematical approach of the u-signal3D package is described in this paper, [***Cellular harmonics for the morphology-invariant analysis of molecular organization at the cell surface***](https://doi.org/10.1101/2022.08.17.504332), written by Hanieh Mazloom-Farsibaf, Qiongjing Zou, Rebecca Hsieh, [Gaudenz Danuser](https://www.danuserlab-utsw.org/), Meghan Driscoll (2022).
 
 
 **Overview**
@@ -40,8 +40,6 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D image and 
 
 4.	Save the m-file and run it by typing `runUSignal3Dimage3D` in MATLAB’s command window. Note that a pool for parallel processing will likely open. You can control the parallel processing before running the m-file through MATLAB/home/Preferences/Parallel Computing Toolbox.
 
-
 **Reference**
 
 [^1]: Driscoll, M. K. et al. [Robust and automated detection of subcellular morphological motifs in 3D microscopy images](https://www.nature.com/articles/s41592-019-0539-z). *Nature Methods* 16, 1037-1044 (2019). 
-
