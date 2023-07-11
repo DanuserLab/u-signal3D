@@ -46,7 +46,7 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D image and 
 
 This example shows how to apply the Laplace-Beltrami operator to a 3D image and generate the energy spectra of molecular fluorescence intensity near the cell membrane. 
 1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example image](https://cloud.biohpc.swmed.edu/index.php/s/6ZxQwsKk745Xf76/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” bottom in MATLAB. 
-2.	Open [*runUSignal3DMeshsurface.m*](https://github.com/DanuserLab/u-signal3D/blob/master/scripts/runUSignal3DMeshsurface.m), the script that analyzes the PI3K-labeled cell, by typing `edit runUSignal3Dmesh3D` in MATLAB’s command window.  
+2.	Open [*runUSignal3DMeshsurface.m*](https://github.com/DanuserLab/u-signal3D/blob/master/scripts/runUSignal3DMeshsurface.m), the script that analyzes the PI3K-labeled cell, by typing `edit runUSignal3DMeshsurface` in MATLAB’s command window.  
 3.	In the set directories section of the m-file, set the paths for
    
     a.	imageDirectory – the directory of the provided PI3K-labeled cell.
@@ -55,7 +55,7 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D image and 
 
     c.	saveDirectory – the directory where output will be saved.
   	
-4.	Save the m-file and run it by typing `runUSignal3Dimage3D` in MATLAB’s command window. Note that a pool for parallel processing will likely open. You can control the parallel processing before running the m-file through MATLAB/home/Preferences/Parallel Computing Toolbox.  
+4.	Save the m-file and run it by typing `runUSignal3DMeshsurface` in MATLAB’s command window. Note that a pool for parallel processing will likely open. You can control the parallel processing before running the m-file through MATLAB/home/Preferences/Parallel Computing Toolbox.  
 
 **Example 3: Generating polka dot pattern on a given cell surface using the written script.**
  
