@@ -46,6 +46,7 @@ function [meshHandle, figHandle] = plotMeshMD(directoryMD, varargin)
 %  'motion': draw a surface colored by motion
 %  'motionFowards': draw a surface colored by forwards motion
 %  'intensity': draw a surface colored by intensity
+%  'intensityVertex': draw a surface colored by intensity based on vertices
 %  'motifsClustered': draw a surface colored by motif clustering
 %  'patchesClustered': draw a surface colored by patch clustering
 %
@@ -138,7 +139,7 @@ surfaceModes = {'blank', 'curvature', 'curvatureWatersheds', 'curvatureSpillDept
     'surfaceSegmentInterTriangle', 'surfaceSegmentInterLOS', 'protrusions', ...
     'protrusionsType',  'SVMscore', 'SVMscoreThree', 'clickedOn', ...
     'blebsShrunk', 'blebsTracked', 'blebsTrackedOverlap', 'motion', ...
-    'motionForwards', 'intensity', 'motifsClustered', 'patchesClustered'};
+    'motionForwards', 'intensity','intensityVertex', 'motifsClustered', 'patchesClustered'};
 assert(max(strcmp(p.surfaceMode,surfaceModes)), [p.surfaceMode ' is not a valid surfaceMode']);
 
 % check that the inputted meshMode is valid
@@ -408,6 +409,10 @@ switch p.surfaceMode
         climits = [0.4 1.6];
         %climits = [0.2 1.8];
         
+    case 'intensityVertex'
+         cmap = (flipud(makeColormap('seq_yor', 1024)));
+         climits = [prctile(meshColor,1), prctile(meshColor,99)];
+         
     case 'motifsClustered'
         %cmap = [0.6,0.6,0.6; makeColormap('div_spectral', 4)];
         %cmap = lines(6);
@@ -455,7 +460,12 @@ if p.makeColladaDae == 1 && max(meshColor) > 0
     else
         daeSavePath = [daeSavePathMain filesep p.daeSaveName '.dae'];
     end
-    vertexColorRGB = faceColorsToVertexColorsRGB(meshColor, meshToPlot, cmap, climits);
+    % check if the intensity is calculated on mesh vertices
+    if ~strcmp(p.surfaceMode, 'intensityVertex')
+        vertexColorRGB = faceColorsToVertexColorsRGB(meshColor, meshToPlot, cmap, climits);
+    else
+        vertexColorRGB = meshColor;
+    end
     progressText(0.75,'Exporting to DAE .... please wait', 'Exporting to DAE');
     saveDAEfile(image3D, meshToPlot, vertexColorRGB, cmap, climits, daeSavePath);
     progressText(1,'Exporting to DAE Complete', 'Exporting to DAE');
@@ -554,7 +564,12 @@ if p.makeMovie
             else
                 daeSavePath = [daeSavePathMain filesep p.daeSaveName '_' num2str(f, '%05d') '.dae'];
             end
-            vertexColorRGB = faceColorsToVertexColorsRGB(meshColor, meshToPlot, cmap, climits);
+            % check if the intensity is calculated on mesh vertices
+            if ~strcmp(p.surfaceMode, 'intensityVertex')
+                vertexColorRGB = faceColorsToVertexColorsRGB(meshColor, meshToPlot, cmap, climits);
+            else 
+                vertexColorRGB = meshColor;
+            end 
             progressText(0.5,'Exporting to DAE ', 'DAEout.');
             saveDAEfile(image3D, meshToPlot, vertexColorRGB, cmap, climits, daeSavePath);
             progressText(1,'Exporting to DAE complete', 'DAEout');

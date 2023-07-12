@@ -1,18 +1,20 @@
 function [LB]=calculateLBOperator(surface,nEigenvec,LBMode)
-% calculateLBOperator - calculates the Laplacian-Beltrami operator on a 
-% triangle mesh 
+% calculateLBOperator - calculates the Laplacian-Beltrami operator on a
+% triangle mesh
 %
-%INPUT 
+%INPUT
 % surface   structure with two fields: faces and verices for a triangle
 %               mesh
 % nEigenvec number of evecs for calculating LB operator (Default = 100)
-% LBMode    LB methods {'coton', 'tufted'} (Default = 'coton')     
+% LBMode    LB methods {'coton', 'tufted'} (Default = 'coton')
 %
 %OUTPUT
 % LB        structure with these fields: {evals, evecs, areaMatrix}
-%required 
+%required
 % laplacian cotan code:
 % laplacian tufted code:https://github.com/nmwsharp/nonmanifold-laplacian
+% laplacian tuftedMesh code:
+% https://github.com/nmwsharp/nonmanifold-laplacian/tree/master
 %
 % Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
@@ -38,33 +40,33 @@ function [LB]=calculateLBOperator(surface,nEigenvec,LBMode)
 %set default for parameters
 if ~exist('nEigenvec','var')
     nEigenvec=100;
-end 
+end
 if ~exist('LBMode','var')
     LBMode='coton';
-end 
+end
 
 %calculate the LB on mesh
 switch LBMode
     case 'cotan'
-C1 = [surface.vertices(:,1) surface.vertices(:,2) surface.vertices(:,3)];
-A = vertexAreas(C1, surface.faces); % compute the diagonal (lumped) area matrix
-W = cotWeights(C1, surface.faces); % compute the contangent Laplacian matrix
-A = A / sum(sum(A)); % Normalize the area (for scale invariance)
-[e, v] = eigs(W, A, nEigenvec, -1e-6); % compute eigenfunctions by solving generalized eigenvalue problem W phi = lamba A phi
-
-[LB.evals, order] = sort(diag(v),'ascend'); % sort the eigenvalues (and thus, the eigenvectors)
-LB.evecs = e(:,order);
-
-LB.areaMatrix=A;
-  case 'tuftedMesh' % for non-vertex manifold 
-        [laplace, mass] = tuftedWrapper(surface);
-[eigenvector eigenvalue]=eigs(laplace,nEigenvec,-1e-6);
-LB.evals=diag(eigenvalue); 
-LB.evecs=eigenvector;
-LB.areaMatrix=mass; 
-    otherwise 
+        C1 = [surface.vertices(:,1) surface.vertices(:,2) surface.vertices(:,3)];
+        A = vertexAreas(C1, surface.faces); % compute the diagonal (lumped) area matrix
+        W = cotWeights(C1, surface.faces); % compute the contangent Laplacian matrix
+        A = A / sum(sum(A)); % Normalize the area (for scale invariance)
+        [e, v] = eigs(W, A, nEigenvec, -1e-6); % compute eigenfunctions by solving generalized eigenvalue problem W phi = lamba A phi
         
-end 
+        [LB.evals, order] = sort(diag(v),'ascend'); % sort the eigenvalues (and thus, the eigenvectors)
+        LB.evecs = e(:,order);
+        
+        LB.areaMatrix=A;
+    case 'tuftedMesh' % for non-vertex manifold
+        [laplace, mass] = tuftedWrapper(surface);
+        [eigenvector eigenvalue]=eigs(laplace,nEigenvec,-1e-6);
+        LB.evals=diag(eigenvalue);
+        LB.evecs=eigenvector;
+        LB.areaMatrix=mass;
+    otherwise
+        
+end
 
 if(LB.evals(1) < 0 && abs(LB.evals(1)<1e-7)) % avoid "negative zero" in Matlab
     LB.evals(1) = 0;

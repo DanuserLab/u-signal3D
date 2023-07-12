@@ -101,6 +101,9 @@ switch surfaceMode
         
     case 'intensity'
         meshColor = loadIntensityDepthNormalSurfaceColor(MD, chan, frame);
+   
+    case 'intensityVertex'
+        meshColor = loadIntensityVertexSurfaceColor(MD, chan, frame);
     
     otherwise
         meshColor = 1; % make the faces monochromatic

@@ -1,5 +1,5 @@
-function calculateLB(movieDataOrProcess, varargin)
-% calculateLB wrapper function for calculateLBOperator
+function calculateLBMeshMD(movieDataOrProcess, varargin)
+% calculateLBMeshMD wrapper function for calculateLBOperator
 % to be executed by CalculateLaplaceBeltramiProcess.
 % See also wrapFun_uSignal3D_QZ, wrapFun_uSignal3D
 %
@@ -9,7 +9,30 @@ function calculateLB(movieDataOrProcess, varargin)
 %
 % param - (optional) A struct describing the parameters, overrides the
 %                    parameters stored in the process (as of Aug 2016)
-%
+% p.ChannelIndex       - index of the channel (multichannel image)
+% 
+% p.OutputDirectory    - directory where the energy will be saved
+% 
+% p.mesh3DProcessIndex - index of the previous run mesh3DProcess, which is used in this process
+% 
+% p.intensity3DProcessIndex - index of the previous run intensity3DProcess, which is used in this process
+% 
+% p.frameIndex         - index of the frame (time series image)
+% 
+% p.LBMode             - computing the Laplace-Beltrami(LB) algorithm for
+%                       manifold ('cotan') and non-manifold mesh ('tufted')
+% p.nEigenvec          - number of LB eigenvalues (it is limited to the
+%                       number of mesh vertices) 
+% p.calEigenProj       - a flag to calculate the eigenprojection of a
+%                       data (fluorescent intensity) for mesh vertices
+% p.reconstIntensity   - a flag to recreate data for the whole frequency 
+%                       levels 
+% p.useLBFilter        -a flag to recreate data for range of frequency levels  
+% 
+% p.reconstIntensity   -[minFreqIdx maxFreqIdx] minumum and maximum frequency
+%                       index for reconstructing the intensity from LB outputs
+%                       Default is [1 p.nEigenvec]
+% 
 % OUTPUT
 % none (saved to p.OutputDirectory)
 %
@@ -21,6 +44,9 @@ function calculateLB(movieDataOrProcess, varargin)
 % structure
 %
 % Qiongjing (Jenny) Zou, July 2022
+%
+% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+% 
 %
 % Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
@@ -82,36 +108,6 @@ else
     end
 end
 
-% Below did not work, commented out.
-% if ~isempty(p.mesh3DProcessIndex)
-%     % use mesh from mesh3DProcess, no matter if mesh provided in externalMeshFilePath or not
-%     if ~isa(movieData.processes_{p.mesh3DProcessIndex},'Mesh3DProcess')
-%         if exist(p.externalMeshFilePath, 'file')
-%             % use mesh from externalMeshFilePath
-%             warning("Wrong Mesh3DProcess index provided! Use mesh from external mesh file path.")
-%         else
-%             error("Wrong Mesh3DProcess index provided!")
-%         end
-%     end
-%     mesh3DProc = movieData.processes_{p.mesh3DProcessIndex};
-% else
-%     if isempty(p.externalMeshFilePath)
-%         % use mesh from mesh3DProcess
-        
-%         p.mesh3DProcessIndex = movieData.getProcessIndex('Mesh3DProcess'); % if there is more than one Mesh3DProcess, popup menu will show up for user to choose
-        
-%         if isempty(p.mesh3DProcessIndex)
-%             error("Mesh3DProcess needs to be done before run Calculate Laplace Beltrami process.")
-%         end
-%         mesh3DProc = movieData.processes_{p.mesh3DProcessIndex};
-%     else
-%         % use mesh from externalMeshFilePath
-        
-%         if ~exist(p.externalMeshFilePath, 'file')
-%             error("Mesh is not found in the external mesh file path.")
-%         end
-%     end
-% end
 
 if isempty(p.intensity3DProcessIndex)
     
@@ -153,8 +149,6 @@ thisProc.setOutFilePaths(outFilePaths);
 % we need surface and intensity for next processes, so for this wrap
 % function, I load the surface and intensity which are results from the
 % previous processes.
-params = p; % change variable name to be consistent with origina script, both used below.
-tic
 for c = p.ChannelIndex
     for t = p.frameIndex
         % QZ input for process 5:
@@ -166,52 +160,55 @@ for c = p.ChannelIndex
         intensityStruct = load(fullfile(intensity3DProc.outFilePaths_{1,c}, ['intensity_' num2str(c) '_' num2str(t) '.mat']));
         vertexIntensities = intensityStruct.vertexIntensities;
         
-        %visualize the intensity, QZ if use external mesh file, this part does not need to run, no need to save .dae file.
-        % load imageSurface, QZ output from step 3 Mesh3DProces
-        imageSurfaceStruct = load(fullfile(mesh3DProc.outFilePaths_{1,c}, ['imageSurface_' num2str(c) '_' num2str(t) '.mat']));
-        imageSurface = imageSurfaceStruct.imageSurface;
-        % QZ 2 params:
-        cmap = params.cmap;
-        climits = params.climits;
-        
-        daeSavePath = [outFilePaths{2,c} filesep ['intensity_' num2str(c) '_' num2str(t) '.dae']]; % QZ output 0
-        saveDAEfile(imageSurface, surface, vertexIntensities.mean, cmap, climits, daeSavePath);
         %%% Process 5: calculate LB
         fprintf('Process 5: calculating Laplace-Beltrami ... \n')
         %set parameters
         % check nonmanifold vertices to set the LB.method automatically
-        V=is_vertex_nonmanifold(surface.faces);
+        V = is_vertex_nonmanifold(surface.faces);
         if ~isempty(find(V))
-            params.LBMode = 'tufted';
-        else
-            params.LBMode = 'cotan';
+            warning('The tuftedMesh method should be used for calculating LB when mesh vertices are not manifold')
+        end
+        
+        % determine a proper method for calculating LB if the LBMode is not
+        % chosen
+        if ~strcmp(p.LBMode,'cotan')
+            if ~isempty(find(V))
+                p.LBMode = 'tuftedMesh';
+            else
+                p.LBMode = 'cotan';
+            end
         end
         
         %calculate the LB for a mesh
-        [LB] = calculateLBOperator(surface,params.nEigenvec,params.LBMode)
+        [LB] = calculateLBOperator(surface,p.nEigenvec,p.LBMode);
         eigenvalue = LB.evals;
         eigenvector = LB.evecs;
         areaMatrix = LB.areaMatrix;
         dataName = ['laplacian_' num2str(c) '_' num2str(t) '.mat']; % QZ output 1
         parsave(fullfile(outFilePaths{1,c}, dataName), eigenvalue,eigenvector,areaMatrix); % (not a built-in function, parsave Meghan's fcn)
         %calculate the eigenprojection if it is needed
-        if params.calEigenProj
+        if p.calEigenProj
             eigenprojection = calLBEigenprojection(eigenvector,areaMatrix,vertexIntensities.mean);
         end
         dataName = ['eigenprojection_' num2str(c) '_' num2str(t) '.mat']; % QZ output 2
         parsave(fullfile(outFilePaths{1,c}, dataName), eigenprojection); % (not a built-in function, parsave Meghan's fcn)
         
         % recosntructing signal
-        if params.reconstIntensity
+        if p.reconstIntensity
             [reconstructedIntensity, MSE_LBIntensity]=createLBIntensity(eigenvector,eigenprojection,vertexIntensities.mean);
             dataName = ['reconstructedIntensity' num2str(c) '_' num2str(t) '.mat']; % QZ output 3
             parsave(fullfile(outFilePaths{1,c}, dataName), reconstructedIntensity, MSE_LBIntensity); %
         end
         
         % filtering signal
-        if params.useLBFilter
-            % filter out the intensity signal
-            [filteredIntensity, MSE_LBIntensity]=createLBIntensity(eigenvector,eigenprojection,vertexIntensities.mean,params.maxLBfrequencyIndex);
+        if p.useLBFilter
+            %check if the maximum frequency index for filtering is smaller
+            %than the number of eignenvector 
+            if p.maxLBfrequencyIndex > p.nEigenvec 
+                p.maxLBfrequencyIndex = p.nEigenvec;
+            end 
+                % filter out the intensity signal
+                [filteredIntensity, MSE_LBIntensity]=createLBIntensity(eigenvector,eigenprojection,vertexIntensities.mean,p.maxLBfrequencyIndex);
             dataName = ['filteredIntensity' num2str(c) '_' num2str(t) '.mat']; % QZ output 4
             parsave(fullfile(outFilePaths{1,c}, dataName), filteredIntensity, MSE_LBIntensity); %
         end
@@ -219,7 +216,6 @@ for c = p.ChannelIndex
     end
 end
 
-toc
 %%%% end of algorithm
 
 disp('Finished Calculating Laplace-Beltrami!')

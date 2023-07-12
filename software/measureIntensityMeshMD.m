@@ -49,6 +49,13 @@ function measureIntensityMeshMD(processOrMovieData, varargin)
 %                        if useDeconvolved is set to 0. To control what
 %                        image is deconvolved set Deconvolution process
 %                        parameters.
+% 
+% p.meanNormalization    - 1 to use the mean value for intensity, used only
+%                          for intensity at mesh vertices
+% 
+% p.rmInsideBackground    - 1 to remove the background of the cytosol area
+% 
+%% parse inputs
 %
 % Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
@@ -68,8 +75,6 @@ function measureIntensityMeshMD(processOrMovieData, varargin)
 % along with uSignal3DPackage.  If not, see <http://www.gnu.org/licenses/>.
 % 
 % 
-
-%% parse inputs
 ip = inputParser;
 ip.CaseSensitive = false;
 ip.addRequired('movieData', @(x) isa(x,'Process') && isa(x.getOwner(),'MovieData') || isa(x,'MovieData'));
@@ -314,7 +319,13 @@ for c = p.chanList
         if strcmp(p.intensityMode,'intensityInsideRawVertex') || strcmp(p.intensityMode,'intensityInsideDepthNormalVertex') %save the intensity on vertex - HMF2022
                parsave(fullfile(outFilePaths{1,c}, dataName), vertexIntensities); % (not a built-in function)
         end 
-         
+        %HMF update it
+        if strcmp(p.intensityMode,'intensityInsideRawVertex')==1 || strcmp(p.intensityMode,'intensityInsideDepthNormalVertex')==1
+            [m, h] = plotMeshMD(MD,'surfaceMode','intensityVertex');
+        else 
+            [m, h] = plotMeshMD(MD,'surfaceMode','intensity');
+        end 
+    savefig(h, fullfile(outFilePaths{3,c},'meshIntensity.fig'))
     end
 end
 

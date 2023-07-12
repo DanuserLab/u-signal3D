@@ -1,12 +1,14 @@
-function [reconstructedIntensity MSE_LBIntensity]=createLBIntensity(eigenvector,eigenprojection,originalIntensity,maxEvecIdx)
+function [reconstructedIntensity MSE_LBIntensity]=createLBIntensity(eigenvector,eigenprojection,originalIntensity,FrequencyRange)
 % createLBIntensity - create signal(intensity) from the Laplacian-Beltrami 
-% operator's eigenvectors  
+% operator's eigenvectors. It calculates the data defined for given
+% frequency levels or as defualt for the whole frequency levels.
 %
 %INPUT 
 % eigenvector        LB eigenvectors
-% eigenprojection    LB eigenprojection for a given signal   
-% maxEvecIdx         maximum frequency index of LB eigenvector for recreating
-%                    the signal
+% eigenprojection    LB eigenprojection for a given signal  
+% originalIntensity  original data defined at mesh vertices (for error)
+% FrequencyRange     [min max] frequency index of LB eigenvector for recreating
+%                    the signal, (Default = [1 number of mesh vertex])
 %  
 %OUTPUT
 % reconstructedIntensity   reconstructed signal 
@@ -37,11 +39,25 @@ function [reconstructedIntensity MSE_LBIntensity]=createLBIntensity(eigenvector,
 % cretaed by Hanieh Mazloom-Farsibaf - Danuser lab 2021
 
 if ~exist('maxEvecIdx','var')
-    maxEvecIdx = size(eigenvector,2);
+    FrequencyRange = [1 size(eigenvector,2)];
 end 
 
-reconstructedIntensity=zeros(size(eigenvector,1),1);
-for ii=1:maxEvecIdx
-    reconstructedIntensity=eigenprojection(ii).*eigenvector(:,ii)+reconstructedIntensity;
-    MSE_LBIntensity(ii,1)=sum(abs(reconstructedIntensity-originalIntensity))/sum(originalIntensity);
+% if only maximum is given, assign the minimum level as the first level
+if length(FrequencyRange) == 1
+    FrequencyRange = [1 FrequencyRange];
+end
+
+%initialize the reconstructed data and Mean Square error 
+reconstructedIntensity = zeros(size(eigenvector,1),1);
+MSE_LBIntensity = nan(FrequencyRange(2)-FrequencyRange(1)+1,1);
+
+% recreate the data between given frequency levels
+for iFreq = FrequencyRange(1):FrequencyRange(2)
+    reconstructedIntensity = eigenprojection(iFreq).*eigenvector(:,iFreq)+reconstructedIntensity;
+    %calculate the error between the original data and reconstructed data 
+    if exist('originalIntensity','var')
+        MSE_LBIntensity(iFreq,1) = sum(abs(reconstructedIntensity-originalIntensity))/sum(originalIntensity);
+    else 
+        MSE_LBIntensity = [];
+    end  
 end 

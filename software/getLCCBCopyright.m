@@ -37,4 +37,3 @@ function copyright = getLCCBCopyright()
 % Set year and version information
 str_year = datestr(date,'YYYY');
 copyright = sprintf('Copyright %s Danuser Lab - UTSouthwestern', str_year);
-% -- TEST CI pipeline deploy to GITHUB -- CI pipeline build # 172769

@@ -1,5 +1,5 @@
-function measureEnergy(movieDataOrProcess, varargin)
-% measureEnergy wrapper function for calDirichletEnergySpectrum and calEnergyLevel
+function measureEnergyMeshMD(movieDataOrProcess, varargin)
+% measureEnergyMeshMD wrapper function for calDirichletEnergySpectrum and calEnergyLevel
 % to be executed by MeasureEnergySpectraProcess.
 % See also wrapFun_uSignal3D_QZ, wrapFun_uSignal3D
 %
@@ -7,9 +7,19 @@ function measureEnergy(movieDataOrProcess, varargin)
 % movieDataOrProcess - either a MovieData (legacy)
 %                      or a Process (new as of July 2016)
 %
-% param - (optional) A struct describing the parameters, overrides the
+% params - (optional) A struct describing the parameters, overrides the
 %                    parameters stored in the process (as of Aug 2016)
-%
+% p.ChannelIndex       - index of the channel (multichannel image)
+% 
+% p.OutputDirectory    - directory where the energy will be saved
+% 
+% p.LB3DProcessIndex  - index of the previous run CalculateLaplaceBeltramiProcess, which is used in this process
+% 
+% p.frameIndex         - index of the frame (time series image)
+% 
+% p.useNormalizedEnergy- flag for normalizing the energy to 1 for comparing
+%                        multiple cells
+% 
 % OUTPUT
 % none (saved to p.OutputDirectory)
 %
@@ -21,6 +31,9 @@ function measureEnergy(movieDataOrProcess, varargin)
 % structure
 %
 % Qiongjing (Jenny) Zou, July 2022
+%
+% Copyright (C) 2022, Danuser Lab - UTSouthwestern 
+%
 %
 % Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
@@ -40,6 +53,7 @@ function measureEnergy(movieDataOrProcess, varargin)
 % along with uSignal3DPackage.  If not, see <http://www.gnu.org/licenses/>.
 % 
 % 
+
 
 %% ------------------ Input ---------------- %%
 ip = inputParser;
@@ -67,20 +81,20 @@ if max(p.frameIndex) > movieData.nFrames_ || min(p.frameIndex)<1 || ~isequal(rou
 end
 
 % precondition / error checking
-if isempty(p.calLBProcessIndex)
+if isempty(p.LB3DProcessIndex)
     
-    p.calLBProcessIndex = movieData.getProcessIndex('CalculateLaplaceBeltramiProcess'); % if there is more than one CalculateLaplaceBeltramiProcess, popup menu will show up for user to choose
+    p.LB3DProcessIndex = movieData.getProcessIndex('CalculateLaplaceBeltramiProcess'); % if there is more than one CalculateLaplaceBeltramiProcess, popup menu will show up for user to choose
     
-    if isempty(p.calLBProcessIndex)
+    if isempty(p.LB3DProcessIndex)
         error("Intensity3DProcess needs to be done before run Calculate Laplace Beltrami process.")
     end
 else
-    if ~isa(movieData.processes_{p.calLBProcessIndex},'CalculateLaplaceBeltramiProcess')
+    if ~isa(movieData.processes_{p.LB3DProcessIndex},'CalculateLaplaceBeltramiProcess')
         error("Wrong CalculateLaplaceBeltramiProcess index provided!")
     end
 end
 
-calLBProc = movieData.processes_{p.calLBProcessIndex};
+calLBProc = movieData.processes_{p.LB3DProcessIndex};
 
 % logging input paths (bookkeeping)
 inFilePaths = cell(1, numel(movieData.channels_));
@@ -101,37 +115,68 @@ thisProc.setOutFilePaths(outFilePaths);
 
 %% Algorithm
 % Edited from wrapFun_uSignal3D_QZ.m process 5 line 210 to 241
-params = p; % change variable name to be consistent with origina script, both used below.
-tic
+
 for c = p.ChannelIndex
     for t = p.frameIndex
         fprintf('Process 6: measuring the energy spectra ... \n');
         
-        %calculate the energy density spectrum
+       %calculate the energy density spectrum
         % QZ inputs are eigenprojection, eigenvalue from proc5
-        load(fullfile(calLBProc.outFilePaths_{1,c}, ['eigenprojection_' num2str(c) '_' num2str(t) '.mat']), 'eigenprojection');
-        load(fullfile(calLBProc.outFilePaths_{1,c}, ['laplacian_' num2str(c) '_' num2str(t) '.mat']), 'eigenvalue');
+        %load eigenProjection
+        sEigenProj = load(fullfile(calLBProc.outFilePaths_{1,c}, ['eigenprojection_' num2str(c) '_' num2str(t) '.mat']), 'eigenprojection');
+        eigenprojection = sEigenProj.eigenprojection;
+
+        %load Laplace-Beltrami eigenvalues 
+        sEigenValue = load(fullfile(calLBProc.outFilePaths_{1,c}, ['laplacian_' num2str(c) '_' num2str(t) '.mat']), 'eigenvalue');
+        eigenvalue = sEigenValue.eigenvalue
         
+        %calculate the energy spectrum across frequency indices
         [DirichletEnergy] = calDirichletEnergySpectrum(eigenprojection,eigenvalue);
+        
+        %calculate the mean/Sum/Max of energy spectrum for each frequency
+        %level
         [MeanLevelEnergy, SumLevelEnergy, MaxLevelEnergy] = calEnergyLevel(DirichletEnergy);
-        if params.useNormalizedEnergy
+        
+        % normalized the energy spectra of frequency level 
+        if p.useNormalizedEnergy
             MeanLevelEnergyNormalized=MeanLevelEnergy/sum(MeanLevelEnergy);
             SumLevelEnergyNormalized=SumLevelEnergy/sum(SumLevelEnergy);
             MaxLevelEnergyNormalized= MaxLevelEnergy/sum(MaxLevelEnergy);
         end
         
+        %save energy spectra across frequency indices
         dataName = ['energySpectra_' num2str(c) '_' num2str(t) '.mat']; % QZ output 1
         parsave(fullfile(outFilePaths{1,c}, dataName), DirichletEnergy); % (not a built-in function)
         
+        %save energy spectra across frequency levels
         dataName = ['energyLevel_' num2str(c) '_' num2str(t) '.mat']; % QZ output 2
         parsave(fullfile(outFilePaths{1,c}, dataName), MeanLevelEnergy, ...
             SumLevelEnergy,MaxLevelEnergy,MeanLevelEnergyNormalized, ...
             SumLevelEnergyNormalized,MaxLevelEnergyNormalized); % (not a built-in function)
         
+        %save the energy level for mean of energy 
+        figureHandle{t} = figure;
+        saveName = ['energyLevel_' num2str(c) '_' num2str(t) '.fig'];
+       
+        %define the x axes as the frequency level based on the number of
+        %desired levels
+        if p.useNormalizedEnergy
+            frequencyLevel = [0:length(MeanLevelEnergyNormalized)-1]';
+            plot(frequencyLevel,MeanLevelEnergyNormalized,'.-');
+            yaxes = 'Mean energy density';
+        else
+            frequencyLevel = [0:length(MeanLevelEnergy)-1]';
+            plot(frequencyLevel,MeanLevelEnergy,'.-');
+            yaxes = 'Mean energy';
+        end 
+        xlabel('Frequency level')
+        ylabel(yaxes)
+        title ('Energy Spectra')
+        saveas(figureHandle{t},fullfile(outFilePaths{t,c},saveName),'tiffn')
     end
+    
 end
 
-toc
 %%%% end of algorithm
 
 disp('Finished Measuring Energy Spectra!')

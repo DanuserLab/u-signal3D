@@ -295,8 +295,21 @@ classdef Mesh3DProcess < ImageAnalysisProcess
             defaultParams.removeSmallComponents = 1; % New parameter added for removing small componnets of a mesh for Hanieh Mazloom Farsibaf, July 2022.   
               
             % set more default parameters
-            defaultParams.OutputDirectory = fullfile(ip.Results.outputDir,'Morphology', 'Analysis','Mesh');        
-            defaultParams = prepPerChannelParams(defaultParams, nChan);                    
+
+            % Edit results folder orgnization if this process is used in uSignal3DPackage, Qiongjing (Jenny) Zou, July 2023
+            if ~isempty(ip.Results.owner.packages_) && isa(ip.Results.owner.packages_{end}, 'uSignal3DPackage')
+                defaultParams.OutputDirectory = [ip.Results.outputDir filesep 'uSignal3DPackage' filesep 'Mesh'];
+            else
+                defaultParams.OutputDirectory = fullfile(ip.Results.outputDir,'Morphology', 'Analysis','Mesh');   
+            end
+                    
+            defaultParams = prepPerChannelParams(defaultParams, nChan);   
+
+            % more parameters added by Hanieh Mazloom Farsibaf, July 2023:
+            defaultParams.daeFilePath = []; % the path to a mesh stored as a dae file. Only used if meshMode is readDaeFile
+            defaultParams.objFilePath = []; % the path to a mesh stored as a obj file. Only used if meshMode is readObjFile
+            defaultParams.plyFilePath = []; % the path to a mesh stored as a ply file. Only used if meshMode is readPlyFile
+
         end
         
     end

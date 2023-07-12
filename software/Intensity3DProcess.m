@@ -151,7 +151,13 @@ defaultParams.leftRightCorrection = 0; % try to corrects the left-right microsco
             defaultParams.channels = ''; % the channels to mesh, set to 'all' for all the channels or give an array of channel numbers
             defaultParams.InputImageProcessIndex = []; % TODO -- Process Output to use as input to the deconvolution, empty implies raw images
 
-            defaultParams.OutputDirectory = fullfile(ip.Results.outputDir,'Morphology','Analysis','Intensity');        
+            % Edit results folder orgnization if this process is used in uSignal3DPackage, Qiongjing (Jenny) Zou, July 2023
+            if ~isempty(ip.Results.owner.packages_) && isa(ip.Results.owner.packages_{end}, 'uSignal3DPackage')
+                defaultParams.OutputDirectory = [ip.Results.outputDir filesep 'uSignal3DPackage' filesep 'Intensity'];
+            else
+                defaultParams.OutputDirectory = fullfile(ip.Results.outputDir,'Morphology','Analysis','Intensity');   
+            end
+                   
             defaultParams = prepPerChannelParams(defaultParams, nChan);                      
         
             defaultParams.rmInsideBackground = 1; % 1 is to subtract the background. New parameter added for Hanieh Mazloom Farsibaf in measureIntensityMeshMD, June 2022.

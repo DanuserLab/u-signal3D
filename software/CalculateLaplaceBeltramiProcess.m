@@ -1,6 +1,6 @@
 classdef  CalculateLaplaceBeltramiProcess < DataProcessingProcess & NonSingularProcess
     % Process Class for calculating Laplace-Beltrami
-    % calculateLB.m is the wrapper function
+    % calculateLBMeshMD.m is the wrapper function
     % CalculateLaplaceBeltramiProcess is part of uSignal3D package
     %
     % Qiongjing (Jenny) Zou, July 2022
@@ -43,7 +43,7 @@ classdef  CalculateLaplaceBeltramiProcess < DataProcessingProcess & NonSingularP
                 
                 super_args{1} = owner;
                 super_args{2} = CalculateLaplaceBeltramiProcess.getName;
-                super_args{3} = @calculateLB;
+                super_args{3} = @calculateLBMeshMD;
                 if isempty(funParams)
                     funParams = CalculateLaplaceBeltramiProcess.getDefaultParams(owner,outputDir);
                 end
@@ -86,10 +86,7 @@ classdef  CalculateLaplaceBeltramiProcess < DataProcessingProcess & NonSingularP
             funParams.intensity3DProcessIndex = [];
             funParams.frameIndex = 1:owner.nFrames_; % t, time index
             
-            funParams.cmap = (flipud(makeColormap('seq_yor', 1024)));
-            funParams.climits = [-inf inf];
-            
-            funParams.LBMode = []; % will check nonmanifold vertices to set the LB.method automatically to be 'tufted' or 'cotan'. QZ but will not be saved
+            funParams.LBMode = 'cotan'; % will check nonmanifold vertices to set the LB.method automatically to be 'tuftedMesh' or 'cotan'.
             funParams.nEigenvec = 1000; % put 1000 as default now
             funParams.calEigenProj = 1; %flag for calculating eigenprojection
             funParams.reconstIntensity = 1; %flag for recosntructing signal

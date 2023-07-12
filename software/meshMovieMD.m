@@ -23,6 +23,10 @@ function meshMovieMD(processOrMovieData, varargin)
 %                          an inside mask and an Otsu threshold
 %    'readDaeFile'   - rather than generate a mesh, loads a mesh saved as a 
 %                      collada DAE file
+%    'readObjFile'   - rather than generate a mesh, loads a mesh saved as a 
+%                      collada OBJ file
+%    'readPlyFile'   - rather than generate a mesh, loads a mesh saved as a 
+%                      collada PLY file
 %
 %    'loadMask' - loads and blurs a mask to create the mesh from
 %
@@ -102,9 +106,18 @@ function meshMovieMD(processOrMovieData, varargin)
 % p.daeFilePath - the path to a mesh stored as a dae file. Only used if
 %                 meshMode is readDaeFile
 % 
+% p.objFilePath - the path to a mesh stored as a obj file. Only used if
+%                 meshMode is readObjFile
+% 
+% p.plyFilePath - the path to a mesh stored as a ply file. Only used if
+%                 meshMode is readPlyFile
+% 
 % p.maskDir - the directoty of an optional mask to load
 %
 % p.maskName - the name of an optional mask to load (saved as an image)
+% 
+% p.removeSmallComponents - a flag to remove the small mesh components
+%% parse inputs
 %
 % Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
@@ -124,8 +137,6 @@ function meshMovieMD(processOrMovieData, varargin)
 % along with uSignal3DPackage.  If not, see <http://www.gnu.org/licenses/>.
 % 
 % 
-
-%% parse inputs
 ip = inputParser;
 ip.CaseSensitive = false;
 ip.addRequired('movieData', @(x) isa(x,'Process') && isa(x.getOwner(),'MovieData') || isa(x,'MovieData'));
@@ -279,6 +290,12 @@ for c = p.chanList
             case 'readDaeFile'
                 [surface, ~] = readDAEfile(p.daeFilePath);
                 surface.faces = [surface.faces(:,2), surface.faces(:,1), surface.faces(:,3)];
+                [~, imageSurface, intensityLevels(c,t)] = meshOtsu(image3D, p.scaleOtsu)
+           case 'readObjFile'
+                [surface.vertices surface.faces] = readOBJ(p.objFilePath);
+                [~, imageSurface, intensityLevels(c,t)] = meshOtsu(image3D, p.scaleOtsu)
+          case 'readPlyFile'
+                [surface.vertices surface.faces] = read_ply(p.plyFilePath);
                 [~, imageSurface, intensityLevels(c,t)] = meshOtsu(image3D, p.scaleOtsu)
             case 'loadMask'
                 image3D = im2double(load3DImage(p.maskDir, [p.maskName num2str(t-1) '.tif'])); 

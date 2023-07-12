@@ -202,7 +202,13 @@ classdef Deconvolution3DProcess < ImageProcessingProcess
             defaultParams.saveNotApodized = 0;
             defaultParams.usePhotobleach = 0; % set to 1 to load photobleach corrected movies            
             defaultParams.ChannelIndex = 1:numel(owner.channels_); % see class method setPara above
-            defaultParams.OutputDirectory = fullfile(ip.Results.outputDir,'Morphology','Deconvolution');        
+
+            % Edit results folder orgnization if this process is used in uSignal3DPackage, Qiongjing (Jenny) Zou, July 2023
+            if ~isempty(ip.Results.owner.packages_) && isa(ip.Results.owner.packages_{end}, 'uSignal3DPackage')
+                defaultParams.OutputDirectory = [ip.Results.outputDir filesep 'uSignal3DPackage' filesep 'Deconvolution'];
+            else
+                defaultParams.OutputDirectory = fullfile(ip.Results.outputDir,'Morphology','Deconvolution');    
+            end    
             
             % list of parameters which can be specified at a per-channel level. If specified as scalar these will be replicated
             defaultParams.PerChannelParams = {'deconMode','weinerAuto','weiner','apoHeight','richLucyIter','usePhotobleach'};

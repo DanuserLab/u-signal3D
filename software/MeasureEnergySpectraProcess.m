@@ -1,6 +1,6 @@
 classdef  MeasureEnergySpectraProcess < DataProcessingProcess & NonSingularProcess
     % Process Class for measuring Energy Spectra
-    % measureEnergy.m is the wrapper function
+    % measureEnergyMeshMD.m is the wrapper function
     % MeasureEnergySpectraProcess is part of uSignal3D package
     %
     % Qiongjing (Jenny) Zou, July 2022
@@ -43,7 +43,7 @@ classdef  MeasureEnergySpectraProcess < DataProcessingProcess & NonSingularProce
                 
                 super_args{1} = owner;
                 super_args{2} = MeasureEnergySpectraProcess.getName;
-                super_args{3} = @measureEnergy;
+                super_args{3} = @measureEnergyMeshMD;
                 if isempty(funParams)
                     funParams = MeasureEnergySpectraProcess.getDefaultParams(owner,outputDir);
                 end
@@ -79,7 +79,7 @@ classdef  MeasureEnergySpectraProcess < DataProcessingProcess & NonSingularProce
             funParams.OutputDirectory = [outputDir  filesep 'Energy'];
             % funParams.OutputDirectory = [outputDir  filesep 'Morphology' filesep 'Analysis' filesep 'Energy']; % QZ TODO
             
-            funParams.calLBProcessIndex = [];
+            funParams.LB3DProcessIndex = [];
             funParams.frameIndex = 1:owner.nFrames_; % t, time index
             
             funParams.useNormalizedEnergy = 1;
