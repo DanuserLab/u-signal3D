@@ -38,4 +38,5 @@ imwrite(squeeze(image3D(:,:,1)), imagePath, 'Compression', 'none')
 imageSize = size(image3D);
 for z=2:imageSize(3)
     imwrite(squeeze(image3D(:,:,z)), imagePath, 'Compression', 'none', 'WriteMode', 'append')
+
 end

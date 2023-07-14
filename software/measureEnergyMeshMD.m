@@ -128,7 +128,7 @@ for c = p.ChannelIndex
 
         %load Laplace-Beltrami eigenvalues 
         sEigenValue = load(fullfile(calLBProc.outFilePaths_{1,c}, ['laplacian_' num2str(c) '_' num2str(t) '.mat']), 'eigenvalue');
-        eigenvalue = sEigenValue.eigenvalue
+        eigenvalue = sEigenValue.eigenvalue;
         
         %calculate the energy spectrum across frequency indices
         [DirichletEnergy] = calDirichletEnergySpectrum(eigenprojection,eigenvalue);

@@ -293,10 +293,10 @@ for c = p.chanList
                 [~, imageSurface, intensityLevels(c,t)] = meshOtsu(image3D, p.scaleOtsu)
            case 'readObjFile'
                 [surface.vertices surface.faces] = readOBJ(p.objFilePath);
-                [~, imageSurface, intensityLevels(c,t)] = meshOtsu(image3D, p.scaleOtsu)
+                [~, imageSurface, intensityLevels(c,t)] = meshOtsu(image3D, p.scaleOtsu);
           case 'readPlyFile'
                 [surface.vertices surface.faces] = read_ply(p.plyFilePath);
-                [~, imageSurface, intensityLevels(c,t)] = meshOtsu(image3D, p.scaleOtsu)
+                [~, imageSurface, intensityLevels(c,t)] = meshOtsu(image3D, p.scaleOtsu);
             case 'loadMask'
                 image3D = im2double(load3DImage(p.maskDir, [p.maskName num2str(t-1) '.tif'])); 
                 image3D = make3DImageVoxelsSymmetric(image3D, MD.pixelSize_, MD.pixelSizeZ_);
@@ -316,7 +316,7 @@ for c = p.chanList
         end
         % remove small componnets from the mesh - HMF2022
         if p.removeSmallComponents
-        [surface.vertices surface.faces] = remove_small_components(surface.vertices,surface.faces);
+            [surface.vertices surface.faces] = remove_small_components(surface.vertices,surface.faces);
         end 
         % register the image by making the interior most point the cell center (this works better than standard registration for 
         % movies where the protrusions change quickly relative to the frame rate and are large compared to the cell size)
