@@ -30,7 +30,7 @@ The package comprises the following processes,
 **Example 1: Generating spectral decomposition of a molecular signal at the cell surface for a 3D image using the written script in the u-signal3D package.**
 
 This example shows how to apply the Laplace-Beltrami operator to a 3D image and generate the energy spectra of molecular fluorescence intensity near the cell membrane. 
-1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example image](https://cloud.biohpc.swmed.edu/index.php/s/6ZxQwsKk745Xf76/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” button in MATLAB. 
+1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example image](https://cloud.biohpc.swmed.edu/index.php/s/MfgQ23KWYED66iR/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” button in MATLAB. 
 2.	Open [*runUSignal3Dimage3D.m*](https://github.com/DanuserLab/u-signal3D/blob/master/scripts/runUSignal3Dimage3D.m), the script that analyzes the PI3K-labeled cell, by typing `edit runUSignal3Dimage3D` in MATLAB’s command window.  
 3.	In the set directories section of the m-file, set the paths for
 
@@ -45,8 +45,8 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D image and 
 **Example 2: Generating spectral decomposition of a molecular signal at the cell surface for a 3D image using the written script in the u-signal3D package (mesh surface is given as obj file).**
 
 This example shows how to apply the Laplace-Beltrami operator to a 3D image and generate the energy spectra of molecular fluorescence intensity near the cell membrane. 
-1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example image](https://cloud.biohpc.swmed.edu/index.php/s/6ZxQwsKk745Xf76/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” bottom in MATLAB. 
-2.	Open [*runUSignal3DMeshsurface.m*](https://github.com/DanuserLab/u-signal3D/blob/master/scripts/runUSignal3DMeshsurface.m), the script that analyzes the PI3K-labeled cell, by typing `edit runUSignal3DMeshsurface` in MATLAB’s command window.  
+1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example image](https://cloud.biohpc.swmed.edu/index.php/s/MfgQ23KWYED66iR/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” bottom in MATLAB. 
+2.	Open [*runUSignal3Dmeshsurface.m*](https://github.com/DanuserLab/u-signal3D/blob/master/scripts/runUSignal3DmeshSurface.m), the script that analyzes the PI3K-labeled cell, by typing `edit runUSignal3Dmeshsurface` in MATLAB’s command window.  
 3.	In the set directories section of the m-file, set the paths for
    
     a.	imageDirectory – the directory of the provided PI3K-labeled cell.
@@ -55,12 +55,12 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D image and 
 
     c.	saveDirectory – the directory where output will be saved.
   	
-4.	Save the m-file and run it by typing `runUSignal3DMeshsurface` in MATLAB’s command window. Note that a pool for parallel processing will likely open. You can control the parallel processing before running the m-file through MATLAB/home/Preferences/Parallel Computing Toolbox.  
+4.	Save the m-file and run it by typing `runUSignal3Dmeshsurface` in MATLAB’s command window. Note that a pool for parallel processing will likely open. You can control the parallel processing before running the m-file through MATLAB/home/Preferences/Parallel Computing Toolbox.  
 
 **Example 3: Generating polka dot pattern on a given cell surface using the written script.**
  
 This example shows how to generate polka dot pattern on a given mesh triangle. As mentioned in the paper, we validated the pipeline by generating polka dot pattern as synthetic data.  
-1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example mesh](https://cloud.biohpc.swmed.edu/index.php/s/6ZxQwsKk745Xf76/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” bottom in MATLAB. 
+1.	Download the [code](https://github.com/DanuserLab/u-signal3D/tree/master/software) and [example mesh](https://cloud.biohpc.swmed.edu/index.php/s/MfgQ23KWYED66iR/download). Set the MATLAB’s path for including all the MATLAB’s functions provided by this package, using the “Set Path” bottom in MATLAB. 
 2.	Open [*runPolkaDotOnMesh.m*](https://github.com/DanuserLab/u-signal3D/blob/master/scripts/runPolkaDotOnMesh.m), the script that analyzes the PI3K-labeled cell, by typing `edit runPolkaDotOnMesh` in MATLAB’s command window.  
 3.	In the set directories section of the m-file, set the paths for
    
