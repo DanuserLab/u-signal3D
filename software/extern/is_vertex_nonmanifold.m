@@ -8,6 +8,25 @@ function N = is_vertex_nonmanifold(F)
   % Outputs:
   %   N  #V list of bools whether vertices are not manifold
   %
+%
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+%
+% This file is part of uSignal3DPackage.
+% 
+% uSignal3DPackage is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% uSignal3DPackage is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with uSignal3DPackage.  If not, see <http://www.gnu.org/licenses/>.
+% 
+% 
 
   function A = face_adjacency(F)
     % all edges "both" directions
@@ -47,7 +66,7 @@ function N = is_vertex_nonmanifold(F)
     U = U & (UV*UV')>0;
     % U(i,j) = 1 means unique face-for-vertex i comes from same vertex AND shares
     % edge with face-for-vertex j
-    [~,C] = conncomp(U);
+    [~,C] = conncomp_gptbx(U);
     % V2C(i,j) = 1 means vertex i is in component j
     V2C = sparse(I,C,1,n,max(C))>0;
     N = sum(V2C,2)~=1;
@@ -65,7 +84,7 @@ function N = is_vertex_nonmanifold(F)
       IM = sparse(U,1,1:numel(U));
       Ff = reshape(IM(Ff),size(Ff));
       Av = face_adjacency(Ff);
-      N(v) = conncomp(Av)~=1;
+      N(v) = conncomp_gptbx(Av)~=1;
     end
   end
 end
