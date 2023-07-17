@@ -1,0 +1,2 @@
+#!/bin/bash
+tufted-idt $1 $2 $3
