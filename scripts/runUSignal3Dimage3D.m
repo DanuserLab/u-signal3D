@@ -1,10 +1,29 @@
 function runUSignal3Dimage3D()
+%
+% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+%
+% This file is part of uSignal3DPackage.
+% 
+% uSignal3DPackage is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% uSignal3DPackage is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with uSignal3DPackage.  If not, see <http://www.gnu.org/licenses/>.
+% 
+% 
 
 %imageDirectory is for raw data
 imageDirectory='/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example1/testData';
 saveDirectory='/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example1/analysis';
-psfDirectory = '/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example1/PSFreduced/'; % directory of microscope PSFs
-imageList=[1 2];
+psfDirectory = '/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example1/PSFreduced'; % directory of microscope PSFs
+imageList=[1]; 
 
 %set the psf filename
 pathPSF = [psfDirectory filesep 'rotAvgPSF.mat'];
@@ -24,8 +43,8 @@ for iCell=1:length(imageList)
     %% phase1 >> create the mesh (from u-shape3D) first 4 processes
     % define the MD
     %case 1 - when I have two channels
-    BFDataPath = [imageDirectory '/Cell' num2str(imageList(iCell)) filesep imageName];
-    ResultPath = [saveDirectory '/Cell' num2str(imageList(iCell))];
+    BFDataPath = [imageDirectory filesep 'Cell' num2str(imageList(iCell)) filesep imageName];
+    ResultPath = [saveDirectory filesep 'Cell' num2str(imageList(iCell))];
     if ~isdir(ResultPath) mkdir(ResultPath); end
     MD = MovieData(BFDataPath, ResultPath);
     % case2 - for oneChannel folder
@@ -40,7 +59,8 @@ for iCell=1:length(imageList)
     disp('===================================================================');
     iPack = 1;
     step_ = 1;
-    MD.getPackage(iPack).createDefaultProcess(step_)
+    MD.getPackage(iPack).createDefaultProcess(step_);
+    % see all params for this process
     params = MD.getPackage(iPack).getProcess(step_).funParams_;
     params.deconMode = 'richLucy'; % Edit process parameter, tightness, from 0.5 to 0.6
     params.richLucyIter = 8;
@@ -51,7 +71,7 @@ for iCell=1:length(imageList)
     %update the params for this process
     MD.getPackage(iPack).getProcess(step_).setPara(params);
     MD.save;
-    %check if the params has been set
+    %check if the params has been updated 
     params = MD.getPackage(iPack).getProcess(step_).funParams_
     % run the process
     MD.getPackage(iPack).getProcess(step_).run(); 

@@ -1,12 +1,6 @@
 function runPolkaDotOnMesh()
 % runPolkaDotOnMesh - generates polka dot pattern on MV3 cells
 %
-% Copyright (C) 2022, Danuser Lab - UTSouthwestern
-%
-% This file is part of u-Signal3D package.
-%
-% Before running, please set the directories in the section below and put the analysis code on Matlab's path.
-%
 % Copyright (C) 2023, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
@@ -25,6 +19,8 @@ function runPolkaDotOnMesh()
 % along with uSignal3DPackage.  If not, see <http://www.gnu.org/licenses/>.
 % 
 % 
+
+% Before running, please set the directories in the section below and put the analysis code on Matlab's path.
 meshDirectory = '/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example3/testData';
 saveDirectory = '/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example3/analysis';
 meshfileName = 'surface_1_1.mat'; % filename of the mesh surface (contains faces & vertices)
