@@ -107,7 +107,7 @@ function [P,PI] = farthest_points(V,k,varargin)
   iter = 1;
   while true
     change = false;
-    %progressbar(iter-1,max_iter-1,30);
+    %progressbar_tbx_fast_marching(iter-1,max_iter-1,30);
     for pi = 1:k
       old_PI_pi = PI(pi);
       % other points

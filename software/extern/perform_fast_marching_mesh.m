@@ -54,14 +54,14 @@ function [D,S,Q] = perform_fast_marching_mesh(vertex, faces, start_points, optio
 options.null = 0;
 nverts = max(size(vertex));
 
-end_points  = getoptions(options, 'end_points', []);
-verbose     = getoptions(options, 'verbose', 1);
-nb_iter_max = getoptions(options, 'nb_iter_max', Inf);
-W       = getoptions(options, 'W', ones(nverts,1) );
-L       = getoptions(options, 'constraint_map', []);
-H       = getoptions(options, 'heuristic', []);
-values  = getoptions(options, 'values', []);
-dmax    = getoptions(options, 'dmax', 1e9);
+end_points  = getoptions_tbx_fast_marching(options, 'end_points', []);
+verbose     = getoptions_tbx_fast_marching(options, 'verbose', 1);
+nb_iter_max = getoptions_tbx_fast_marching(options, 'nb_iter_max', Inf);
+W       = getoptions_tbx_fast_marching(options, 'W', ones(nverts,1) );
+L       = getoptions_tbx_fast_marching(options, 'constraint_map', []);
+H       = getoptions_tbx_fast_marching(options, 'heuristic', []);
+values  = getoptions_tbx_fast_marching(options, 'values', []);
+dmax    = getoptions_tbx_fast_marching(options, 'dmax', 1e9);
 
 I = find(L==-Inf); L(I)=-1e9;
 I = find(L==Inf); L(I)=1e9;
