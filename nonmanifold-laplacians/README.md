@@ -41,8 +41,10 @@ For UTSW_BioHPC users, bin can be set in the /home2/s111111/bin, you should repl
 
 `copyfile u-signal3D-master/nonmanifold-laplacians/tufted /home2/s111111/bin`
 
-### You should only need to set up below steps once on your Linux command line:
+### You should only need to set up below steps once on your MATLAB command line:
 These are to make sure the executive tufted files are executable in Matlab. 
+
+The ! character indicates that the rest of the input line is a command to the operating system.
 
 The “export PATH=something:$PATH” command modifies the PATH environment variable of the current system. The “PATH” variable contains the list of directories that the operating system searches for specific executable files.
 
