@@ -39,14 +39,14 @@ For UTSW_BioHPC users, bin can be set in the /home2/s111111/bin, you should repl
 
 `copyfile u-signal3D-uSignal3Dpaper/Laplace_Belltrami/tufted-idt /home2/s111111/bin`
 
-`copyfile u-signal3D-uSignal3Dpaper/home2/Laplace_Belltrami/tufted-idt /home2/s111111/bin`
+`copyfile u-signal3D-uSignal3Dpaper/Laplace_Belltrami/tufted /home2/s111111/bin`
 
 ### You should only need to set up below steps once on your Linux command line:
 These are to make sure the executive tufted files are executable in Matlab. 
 
 The “export PATH=something:$PATH” command modifies the PATH environment variable of the current system. The “PATH” variable contains the list of directories that the operating system searches for specific executable files.
 
-`!export PATH=$PATH":/home2/s11111/bin"`
+`!export PATH=$PATH":/home2/s111111/bin"`
 
 `!echo $PATH`
 
