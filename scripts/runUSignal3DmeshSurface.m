@@ -20,13 +20,14 @@ function runUSignal3DmeshSurface()
 % 
 
 %imageDirectory is for raw data
-imageDirectory='/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example2/testData';
-saveDirectory='/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example2/analysisPly';
-
+imageDirectory = '/Downloads/uSignal3DExamplesData/Example2/testData';
+saveDirectory = '/Downloads/uSignal3DExamplesData/Example2/analysis'; 
+% meshDirectory = ''; % in this example mesh is saved in imageDirectory for
+% each cell individually
 imageList=[1];
 %mesh name, mesh saved in another package as ply or obj and here is the
 %input
-meshFilename = 'surfacemesh.ply';
+meshFilename = 'surfacemesh.obj';
 % meshFilename = 'surfacemesh.obj'; %
 % set the parameters
 pixelSizeXY=160.0990; %PI3K data
@@ -37,9 +38,6 @@ timeInterval=1;
 for iCell=1:length(imageList)
     disp(['--------- Analysing Cell ' num2str(imageList(iCell))])
     imageName='1_CH00_000000.tif';
-    imagePathCell = fullfile(imageDirectory,['Cell' num2str(imageList(iCell))]);
-    savePathCell = fullfile(saveDirectory, ['Cell' num2str(imageList(iCell))]);
-    
     %% phase1 >> create the mesh (from u-shape3D) first 4 processes
     % define the MD
     %case 1 - when I have two channels
@@ -48,6 +46,8 @@ for iCell=1:length(imageList)
     if ~isdir(ResultPath) mkdir(ResultPath); end
     MD = MovieData(BFDataPath, ResultPath);
     % case2 - for oneChannel folder
+    % imagePathCell = fullfile(imageDirectory,['Cell' num2str(imageList(iCell))]);
+    % savePathCell = fullfile(saveDirectory, ['Cell' num2str(imageList(iCell))]);
     % MD = makeMovieDataOneChannel(imagePathCell, savePathCell, pixelSizeXY, pixelSizeZ, timeInterval);
     
     % add a package
@@ -101,12 +101,12 @@ for iCell=1:length(imageList)
     MD.getPackage(iPack).createDefaultProcess(step_)
     params = MD.getPackage(iPack).getProcess(step_).funParams_;
     % params.smoothMeshMode = 'curvature';
-    % params.scaleOtsu = 1;
+    params.scaleOtsu = 1;
     % params.imageGamma = 0.7;
-    % params.smoothImageSize = 1.5;
+    params.smoothImageSize = 1.5;
     % params.insideErodeRadius = 7;
-    params.meshMode ='readPlyFile';
-    params.plyFilePath =[imageDirectory filesep 'Cell' num2str(imageList(iCell)) filesep meshFilename];
+    params.meshMode ='readObjFile'; % for obj file use 'readObjFile' and params.objFilePath should be set
+    params.objFilePath = [imageDirectory filesep 'Cell' num2str(imageList(iCell)) filesep meshFilename];
     params.useUndeconvolved = 1; % for not searching
     params.removeSmallComponents = 1;
     params.ChannelIndex = 1; %analyze only channel1
@@ -123,10 +123,10 @@ for iCell=1:length(imageList)
     step_ = 4;
     MD.getPackage(iPack).createDefaultProcess(step_)
     params = MD.getPackage(iPack).getProcess(step_).funParams_;
-    params.sampleRadius = [1 1];
+    params.sampleRadius = [1];
     params.rmInsideBackground = [0 ];
     params.meanNormalization = [1 ]; %it doesn't exclude the second channel for line 273
-    params.intensityMode = {'intensityInsideRawVertex','intensityInsideRawVertex'};
+    params.intensityMode = {'intensityInsideRawVertex'};
     params.ChannelIndex = 1; %analyze only channel1
     MD.getPackage(iPack).getProcess(step_).setPara(params); 
     MD.save;

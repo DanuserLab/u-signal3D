@@ -21,10 +21,10 @@ function runPolkaDotOnMesh()
 % 
 
 % Before running, please set the directories in the section below and put the analysis code on Matlab's path.
-meshDirectory = '/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example3/testData';
-saveDirectory = '/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example3/analysis';
+meshDirectory = '/Downloads/uSignal3DExamplesData/Example3/testData';
+saveDirectory = '/Downloads/uSignal3DExamplesData/Example3/testData'; 
 meshfileName = 'surface_1_1.mat'; % filename of the mesh surface (contains faces & vertices)
-imageList = [1 2 3];
+imageList = [1];
 
 %set the parameters for generating polkadot pattern
 params.nDots = [16]; % number of dots
