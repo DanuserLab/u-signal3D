@@ -20,9 +20,9 @@ function runUSignal3Dimage3D()
 % 
 
 %imageDirectory is for raw data
-imageDirectory='/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example1/testData';
-saveDirectory='/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example1/analysis';
-psfDirectory = '/project/bioinformatics/Danuser_lab/3Dmorphogenesis/analysis/Hanieh/SpectralDecomposition/Examples/Example1/PSFreduced'; % directory of microscope PSFs
+imageDirectory = '/Downloads/uSignal3DExamplesData/Example1/testData';
+saveDirectory = '/Downloads/uSignal3DExamplesData/Example1/analysis'; 
+psfDirectory = '/Downloads/uSignal3DExamplesData/Example1/PSFreduced'; % directory of microscope PSFs
 imageList=[1]; 
 
 %set the psf filename
@@ -37,17 +37,17 @@ timeInterval=1;
 for iCell=1:length(imageList)
     disp(['--------- Analysing Cell ' num2str(imageList(iCell))])
     imageName='1_CH00_000000.tif';
-    imagePathCell = fullfile(imageDirectory,['Cell' num2str(imageList(iCell))]);
-    savePathCell = fullfile(saveDirectory, ['Cell' num2str(imageList(iCell))]);
     
     %% phase1 >> create the mesh (from u-shape3D) first 4 processes
     % define the MD
-    %case 1 - when I have two channels
+    %case 1 - for two channels 
     BFDataPath = [imageDirectory filesep 'Cell' num2str(imageList(iCell)) filesep imageName];
     ResultPath = [saveDirectory filesep 'Cell' num2str(imageList(iCell))];
     if ~isdir(ResultPath) mkdir(ResultPath); end
     MD = MovieData(BFDataPath, ResultPath);
     % case2 - for oneChannel folder
+    % imagePathCell = fullfile(imageDirectory,['Cell' num2str(imageList(iCell))]);
+    % savePathCell = fullfile(saveDirectory, ['Cell' num2str(imageList(iCell))]);
     % MD = makeMovieDataOneChannel(imagePathCell, savePathCell, pixelSizeXY, pixelSizeZ, timeInterval);
     
     % add a package
@@ -75,7 +75,6 @@ for iCell=1:length(imageList)
     params = MD.getPackage(iPack).getProcess(step_).funParams_
     % run the process
     MD.getPackage(iPack).getProcess(step_).run(); 
-    
     
     %% Process 2: ComputeMIPProcess
     disp('===================================================================');
@@ -121,16 +120,15 @@ for iCell=1:length(imageList)
     step_ = 4;
     MD.getPackage(iPack).createDefaultProcess(step_)
     params = MD.getPackage(iPack).getProcess(step_).funParams_;
-    params.sampleRadius = [1 1];
+    params.sampleRadius = [1 ];
     params.rmInsideBackground = [0 ];
     params.meanNormalization = [1 ]; %it doesn't exclude the second channel for line 273
-    params.intensityMode = {'intensityInsideRawVertex','intensityInsideRawVertex'};
+    params.intensityMode = {'intensityInsideRawVertex'};
     params.ChannelIndex = 1; %analyze only channel1
     MD.getPackage(iPack).getProcess(step_).setPara(params);
     MD.save;
     params = MD.getPackage(iPack).getProcess(step_).funParams_
     MD.getPackage(iPack).getProcess(step_).run();
-    
     
     %% Process 5: LaplaceBeltrami3DProcess
     disp('===================================================================');
@@ -142,7 +140,8 @@ for iCell=1:length(imageList)
     MD.getPackage(iPack).createDefaultProcess(step_)
     params = MD.getPackage(iPack).getProcess(step_).funParams_;
     params.ChannelIndex = 1; %analyze only channel1
-    params.nEigenvec = 100;
+    params.nEigenvec = 100; % change it to 4000 for Fig 2D in the paper
+%     params.LBMode = 'tuftedMesh';
     MD.getProcess(step_).setPara(params);
     MD.save;
     params = MD.getPackage(iPack).getProcess(step_).funParams_
