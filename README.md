@@ -6,7 +6,7 @@
 
 ### Publication
 
-The mathematical approach of the u-signal3D package is described in this paper, [**Cellular harmonics for the morphology-invariant analysis of molecular organization at the cell surface**](https://doi.org/10.1101/2022.08.17.504332), *bioRxiv*, 2022, written by Hanieh Mazloom-Farsibaf, Qiongjing Zou, Rebecca Hsieh, [Gaudenz Danuser](https://www.danuserlab-utsw.org/), Meghan Driscoll.
+The mathematical approach of the u-signal3D package is described in this paper, [**Cellular harmonics for the morphology-invariant analysis of molecular organization at the cell surface**](https://doi.org/10.1038/s43588-023-00512-4), *Nature Computational Science*, 2023, written by Hanieh Mazloom-Farsibaf, Qiongjing Zou, Rebecca Hsieh, [Gaudenz Danuser](https://www.danuserlab-utsw.org/), Meghan Driscoll.
 
 
 ### Overview
