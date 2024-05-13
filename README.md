@@ -15,7 +15,7 @@ The u-signal3D package is primarily designed to quantitatively analyze the spati
 
 ### Memory usage
 
-To run the examples, we used a system with at least 128 GB of RAM. The package can be downloaded and run easily on Windows and Linux. If a lower RAM is used, we recommend monitoring the memory usage. When computing the Laplacian, you can reduce the memory usage by choosing a lower number of eigenvectors ( < 500). This package can run in parallel mode if sufficient memory is available.
+To run the examples, we used a system with 128 GB of RAM. The package can be downloaded and run easily on Windows and Linux. If a lower RAM is used, we recommend monitoring the memory usage. When computing the Laplacian, you can reduce the memory usage by choosing a lower number of eigenvectors ( < 500). This package can run in parallel mode if sufficient memory is available.
 
 ### Repository Structure
 
