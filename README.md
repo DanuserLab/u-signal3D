@@ -15,7 +15,7 @@ The u-signal3D package is primarily designed to quantitatively analyze the spati
 
 ### Memory usage
 
-To run the examples, we used a system with at least 32GB of RAM. The package can be downloaded and run easily on Windows and Linux. If a lower RAM is used, we recommend monitoring the memory usage. When computing the Laplacian, you can reduce the memory usage by choosing a lower number of eigenvectors ( < 500). This package can run in parallel mode if sufficient memory is available.
+To run the examples, we used a system with at least 128 GB of RAM. The package can be downloaded and run easily on Windows and Linux. If a lower RAM is used, we recommend monitoring the memory usage. When computing the Laplacian, you can reduce the memory usage by choosing a lower number of eigenvectors ( < 500). This package can run in parallel mode if sufficient memory is available.
 
 ### Repository Structure
 
@@ -68,7 +68,7 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D image and 
 4. 	Users can change the parameters for each step (check runUSignal3Dimage3D.m).
  
 Expected output is a folder created in saveDirectory, including a subfolder for each process. The package creates three figures, 1) mesh curvature at the cell surface, 2) intensity of the molecular pattern at the surface, 3) energy spectrum of the molecular pattern.
-Running time on a system with 32 GB of RAM: ~ 5 minutes
+Running time on a system with 128 GB of RAM: ~ 5 minutes
 
 **Example 2: Spectral decomposition of a molecular signal at the cell surface from a mesh provided as a .obj file.**
 
@@ -88,7 +88,7 @@ This example shows how to apply the Laplace-Beltrami operator to a 3D mesh and g
 4. 	Users can change the parameters for each step (check runUSignal3DmeshSurface.m).
  
 Expected output is a folder created in saveDirectory, including a subfolder for each process. The package creates three figures, 1) mesh curvature at the cell surface, 2) intensity of the molecular pattern at the surface, 3) energy spectrum of the molecular pattern.
-Running time on a system with 32 GB of RAM: ~ 5 minutes
+Running time on a system with 128 GB of RAM: ~ 5 minutes
 
 **Example 3: Generating polka dot patterns on a given cell surface.**
  
@@ -110,7 +110,7 @@ This example shows how to generate polka dot patterns on a given mesh. As descri
     b.	areaDots – fraction of total surface area occupied by polka dots.
 
 Expected output is a folder created in saveDirectory with a figure that visualizes the polka dot pattern on the cell surface, and .a mat file with the polka dot pattern as an intensity defined at mesh vertices.
-Running time on a system with 32 GB of RAM: ~ 1 minutes
+Running time on a system with 128 GB of RAM: ~ 1 minutes
 
 ### Danuser Lab Links
 
