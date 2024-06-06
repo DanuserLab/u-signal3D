@@ -1,4 +1,5 @@
 # u-Signal3D
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8222824.svg)](https://doi.org/10.5281/zenodo.8222824)
 
 ## User Guide to the u-Signal3D Software Package
 
