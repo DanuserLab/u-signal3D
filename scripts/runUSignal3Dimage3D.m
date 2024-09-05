@@ -121,7 +121,7 @@ for iCell=1:length(imageList)
     MD.getPackage(iPack).createDefaultProcess(step_)
     params = MD.getPackage(iPack).getProcess(step_).funParams_;
     params.sampleRadius = [1 ];
-    params.rmInsideBackground = [0 ];
+    params.normInsideBackground = [0 ];
     params.meanNormalization = [1 ]; %it doesn't exclude the second channel for line 273
     params.intensityMode = {'intensityInsideRawVertex'};
     params.ChannelIndex = 1; %analyze only channel1
