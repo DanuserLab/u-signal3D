@@ -16,7 +16,7 @@ function omeroSave(movieObject)
 %   movieObject - A MovieData object
 %
 %
-% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

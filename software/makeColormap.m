@@ -2,7 +2,7 @@ function colors = makeColormap(type, numColors)
 
 % makeColormap - Make pretty colormaps
 %
-% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 
@@ -153,6 +153,7 @@ elseif strcmp(type, 'div_rwb')
                  67, 147, 195; ...
                  33, 102, 172; ...
                  5, 48, 97]; 
+% colorList=flipud(colorList);% to flip the colormap HMF2022, low value is lighter! 
              
 % the 'BrBG' colormap from ColorBrewer
 elseif strcmp(type, 'div_brwg')

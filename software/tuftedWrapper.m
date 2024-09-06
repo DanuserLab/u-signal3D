@@ -8,7 +8,7 @@ function [laplace, mass] = tuftedWrapper(surface)
 % See also tufted_setup_script
 % by Qiongjing (Jenny) Zou, Sep 2021
 %
-% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

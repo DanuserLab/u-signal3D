@@ -3,7 +3,7 @@ function icon_ButtonDownFcn(hObject, eventdata)
 % in all GUIs.
 %
 %
-% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 
@@ -151,7 +151,7 @@ allRelatedClass = {
     'MultiScaleAutoSegmentationProcess', ...
     'ExternalSegmentationProcess', ...
     'calculateBleedthroughGUI', ...
-    'transformCreationGUI'}
+    'transformCreationGUI'};
 
 outputIdx = ismember(allRelatedClass, inputClass);
 if any(outputIdx)
@@ -165,42 +165,42 @@ function url = getBiosensorsPackHelpPgUrl(className)
 % This local fcn is to get url of the wiki page of Biosensors package.
 switch(className)
     case 'BiosensorsPackage'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Biosensors-Package-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/u-probe-Package-Description';
     case 'DarkCurrentCorrectionProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Dark-Current-Correction-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Dark-Current-Correction-Process-Description';
     case 'ShadeCorrectionProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Shade-Correction-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Shade-Correction-Process-Description';
     case 'CropShadeCorrectROIProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Cropping-Shade-Corrected-Movie-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Cropping-Shade-Corrected-Movie-Process-Description';
     case 'SegmentationProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Segmentation-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Segmentation-Process-Description';
     case 'BackgroundMasksProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Background-Mask-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Background-Mask-Process-Description';
     case 'MaskRefinementProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Mask-Refinement-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Mask-Refinement-Process-Description';
     case 'BackgroundSubtractionProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Background-Subtraction-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Background-Subtraction-Process-Description';
     case 'TransformationProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Transformation-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Transformation-Process-Description';
     case 'BleedthroughCorrectionProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Bleedthrough-Crosstalk-Correction-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Bleedthrough-Crosstalk-Correction-Process-Description';
     case 'RatioProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Ratioing-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Ratioing-Process-Description';
     case 'PhotobleachCorrectionProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Photobleach-Correction-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Photobleach-Correction-Process-Description';
     case 'OutputRatioProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Ratio-Output-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Ratio-Output-Process-Description';
     case 'ThresholdProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Thresholding-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Thresholding-Process-Description';
     case 'MultiScaleAutoSegmentationProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/MSA-(multi-scale-automatic)-Segmentation-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/MSA-(multi-scale-automatic)-Segmentation-Process-Description';
     case 'ExternalSegmentationProcess'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/External-Segmentation-Process-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/External-Segmentation-Process-Description';
     case 'calculateBleedthroughGUI'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Bleedthrough-Coefficient-Calculation-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Bleedthrough-Coefficient-Calculation-Description';
     case 'transformCreationGUI'
-        url = 'https://github.com/DanuserLab/Biosensor/wiki/Alignment-Registration-Transform-Creation-Description';
+        url = 'https://github.com/DanuserLab/u-probe/wiki/Alignment-Registration-Transform-Creation-Description';
     otherwise
-        url = 'https://github.com/DanuserLab/Biosensor/wiki';
+        url = 'https://github.com/DanuserLab/u-probe/wiki';
 end
 end

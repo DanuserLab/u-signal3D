@@ -3,7 +3,7 @@ classdef uSignal3DPackage < Package
     %
     % Qiongjing (Jenny) Zou, July 2022
 %
-% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 
@@ -70,7 +70,7 @@ classdef uSignal3DPackage < Package
     methods (Static)
         
         function name = getName()
-            name = 'U-Signal 3D';
+            name = 'u-signal3D';
         end
 
         function m = getDependencyMatrix(i,j)

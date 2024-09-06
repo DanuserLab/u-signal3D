@@ -8,7 +8,7 @@ function pThis = splitPerChannelParams(pAll,iChan)
 % channels. (designed to accepts output of e.g. prepPerChannelParams.m)
 %
 %
-% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

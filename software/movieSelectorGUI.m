@@ -20,7 +20,7 @@ function varargout = movieSelectorGUI(varargin)
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 %
-% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 
@@ -205,25 +205,20 @@ function packageList = getPackageList()
 packageList = {
     'BiosensorsPackage';...
     'FocalAdhesionPackage'
-    'FocalAdhesionSegmentationPackage'
     'QFSMPackage'
-    'SegmentationPackage'
     'TFMPackage'
     'TrackingPackage'
-    'ParkinTranslocationScoringPackage'
     'WindowingPackage'
-    'ColocalizationPackage'
     'FilamentAnalysisPackage'
-    'ScoreGemPackage'
-    'MicroNucQuantPackage'
-    'MaskPropsCalcFilterPackage'
-    'MaskQuantPackage'
     'Morphology3DPackage'
     'XcorrFluctuationPackage'
     'NewUTrack3DPackage'
-    'FishATLASPackage'
+    % 'FishATLASPackage'
     'GrangerCausalityAnalysisPackage'
     'uSignal3DPackage'
+    'InfoFlowPackage'
+    'uSegmentPackage'
+    'uSegment3DPackage'
     };
 validPackage = cellfun(@(x) exist(x,'class')==8,packageList);
 packageList = packageList(validPackage);

@@ -4,7 +4,7 @@ function processGUI_ApplyFcn(hObject, eventdata, handles,funParams,varargin)
 %
 % Sebastien Besson May 2011 (last modified Oct 2011)
 %
-% Copyright (C) 2023, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 
@@ -28,7 +28,7 @@ function processGUI_ApplyFcn(hObject, eventdata, handles,funParams,varargin)
 
 % Check input
 ip = inputParser;
-ip.addRequired('hObject',@ishandle);
+ip.addRequired('hObject',@(x) ishandle(x) || isa(x, 'appdesigner.appmigration.UIControlPropertiesConverter'));
 ip.addRequired('eventdata',@(x) isstruct(x) || isempty(x) || isa(x, 'event.EventData'));
 ip.addRequired('handles',@isstruct);
 ip.addRequired('funParams',@(x) isstruct(x) || isempty(x))
