@@ -70,7 +70,7 @@ processGUI_OpeningFcn(hObject, eventdata, handles, varargin{:},'initChannel',1);
 
 % Set-up parameters
 userData = get(handles.figure1,'UserData');
-userData.intensityModeOptions = {'intensityInsideDepthNormal', 'intensityInsideRaw', 'intensityOtherInsideDepthNormal', 'intensityOtherOutsideRaw', 'intensityOtherRaw'};
+userData.intensityModeOptions = {'intensityInsideDepthNormal', 'intensityInsideRaw', 'intensityOtherInsideDepthNormal', 'intensityOtherOutsideRaw', 'intensityOtherRaw','intensityInsideRawVertex','intensityInsideDepthNormalVertex'};
 set(handles.figure1, 'UserData', userData);
 funParams = userData.crtProc.funParams_;
 %Remove the output directory as we don't want to replicate it to other
