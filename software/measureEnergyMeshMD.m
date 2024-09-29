@@ -172,7 +172,7 @@ for c = p.ChannelIndex
         xlabel('Frequency level')
         ylabel(yaxes)
         title ('Energy Spectra')
-        saveas(figureHandle{t},fullfile(outFilePaths{t,c},saveName),'tiffn')
+        saveas(figureHandle{t},fullfile(outFilePaths{t,c},saveName))
     end
     
 end
