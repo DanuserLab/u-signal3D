@@ -139,7 +139,7 @@ classdef Intensity3DProcess < MeshProcessingProcess
  
             defaultParams.otherChannel = 2; % channel index for calculating the intensity outside the cell
             defaultParams.sampleRadius = 2; % the radius in microns over which the intensity is sampled
-            defaultParams.intensityMode = {'intensityInsideRawVertex'}; % modes: 'intensityInsideDepthNormal', 'intensityInsideRaw', 'intensityOtherInsideDepthNormal', 'intensityOtherOutsideRaw', intensityOtherRaw' , 'intensityInsideRawVertex','intensityInsideDepthNormalVertex'
+            defaultParams.intensityMode = {'intensityInsideDepthNormal'}; % modes: 'intensityInsideDepthNormal', 'intensityInsideRaw', 'intensityOtherInsideDepthNormal', 'intensityOtherOutsideRaw', intensityOtherRaw' , 'intensityInsideRawVertex','intensityInsideDepthNormalVertex'
             defaultParams.leftRightCorrection = 0; % try to corrects the left-right microscopy intensity offset
             defaultParams.useDifImage = 0; % analyzes the difference between two frames
             defaultParams.useDeconvolved = 0; % 1 to use the deconvolved image, 0 otherwise

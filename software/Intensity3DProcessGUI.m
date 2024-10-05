@@ -292,7 +292,7 @@ for i =1 : numel(funParams.PerChannelParams)
             parVal = get(handles.(['edit_' paramName]), 'String');
             funParams.(paramName)(iChan) = str2double(parVal);
         end
-    elseif strcmp(paramName,'blebMode')
+    elseif strcmp(paramName,'intensityMode')
         strSet = handles.popupmenu_intensityMode.String;
         val = handles.popupmenu_intensityMode.Value;
         funParams.(paramName)(iChan) = strSet(val);
