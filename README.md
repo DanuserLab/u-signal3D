@@ -113,6 +113,12 @@ This example shows how to generate polka dot patterns on a given mesh. As descri
 Expected output is a folder created in saveDirectory with a figure that visualizes the polka dot pattern on the cell surface, and .a mat file with the polka dot pattern as an intensity defined at mesh vertices.
 Running time on a system with 128 GB of RAM: ~ 1 minutes
 
+## Software Updates
+
+### New Version 1.1 (Nov. 19th, 2024):
+Resolved array size error in the Mesh step for Windows.
+
+----------------------
 ### Danuser Lab Links
 
 [Danuser Lab Website](https://www.danuserlab-utsw.org/)
