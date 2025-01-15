@@ -23,7 +23,7 @@ function [B,EV,ED] = biharmonic_embedding(V,F,dim,p);
   %   ED  eigenvalues used in embedding
   % 
 %
-% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

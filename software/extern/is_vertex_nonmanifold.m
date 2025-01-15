@@ -9,7 +9,7 @@ function N = is_vertex_nonmanifold(F)
   %   N  #V list of bools whether vertices are not manifold
   %
 %
-% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

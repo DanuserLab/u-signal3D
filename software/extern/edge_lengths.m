@@ -15,7 +15,7 @@ function l = edge_lengths(V,F)
   %     pairs: 23 31 12 41 42 43
   %
 %
-% Copyright (C) 2024, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 
