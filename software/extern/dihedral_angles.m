@@ -17,7 +17,7 @@ function [theta,cos_theta] = dihedral_angles(V,T,varargin)
   %   cos_theta  #T by 6 list of cosine of dihedral angles (in radians)
   %
 %
-% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2026, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

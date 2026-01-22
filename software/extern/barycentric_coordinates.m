@@ -13,7 +13,7 @@ function B = barycentric_coordinates(P,varargin)
   %   B  #P by dim+1 list of barycentric coordinates
   %
 %
-% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2026, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

@@ -12,7 +12,7 @@ function [DirichletEnergy]=calDirichletEnergySpectrum(...
 %                     eigenvalue * abs(eigenprojection^2)
 % DirichletEnergyDensity   normalized to 1 of the dirichlet enery spectra
 %
-% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2026, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

@@ -35,7 +35,7 @@ function measureEnergyMeshMD(movieDataOrProcess, varargin)
 % Copyright (C) 2022, Danuser Lab - UTSouthwestern 
 %
 %
-% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2026, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

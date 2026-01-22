@@ -31,7 +31,7 @@ function [D,S,Q] = perform_fast_marching_mesh(vertex, faces, start_points, optio
 %
 %   Copyright (c) 2004-2006 Gabriel Peyr?
 %
-% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2026, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

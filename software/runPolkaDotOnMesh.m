@@ -3,7 +3,7 @@ function runPolkaDotOnMesh()
 %
 % Before running, please set the directories in the section below and put the analysis code on Matlab's path.
 %
-% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2026, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

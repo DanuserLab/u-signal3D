@@ -17,7 +17,7 @@ function polkaDotColor = polkaDotMesh(surface, numDots, dottedArea, edgeMode, ed
 % some functions from toolbox fast marching 
 % https://www.mathworks.com/matlabcentral/fileexchange/6110-toolbox-fast-marching
 %
-% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2026, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 

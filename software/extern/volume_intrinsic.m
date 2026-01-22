@@ -10,7 +10,7 @@ function [vol] = volume_intrinsic(l)
   %   vol  #T list of tet volumes (always positive)
   %
 %
-% Copyright (C) 2025, Danuser Lab - UTSouthwestern 
+% Copyright (C) 2026, Danuser Lab - UTSouthwestern 
 %
 % This file is part of uSignal3DPackage.
 % 
