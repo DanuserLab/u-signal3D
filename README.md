@@ -7,7 +7,7 @@
 
 ### Publication
 
-The mathematical approach of the u-signal3D package is described in this paper, [**Cellular harmonics for the morphology-invariant analysis of molecular organization at the cell surface**](https://doi.org/10.1038/s43588-023-00512-4), *Nature Computational Science*, 2023, written by Hanieh Mazloom-Farsibaf, Qiongjing Zou, Rebecca Hsieh, [Gaudenz Danuser](https://www.danuserlab-utsw.org/), Meghan Driscoll.
+The mathematical approach of the u-signal3D package is described in this paper, [**Cellular harmonics for the morphology-invariant analysis of molecular organization at the cell surface**](https://doi.org/10.1038/s43588-023-00512-4), *Nature Computational Science*, 2023, written by Hanieh Mazloom-Farsibaf, Qiongjing Zou, Rebecca Hsieh, Gaudenz Danuser, Meghan Driscoll.
 
 
 ### Overview
@@ -120,7 +120,4 @@ Resolved array size error in the Mesh step for Windows.
 
 ----------------------
 ### Danuser Lab Links
-
-[Danuser Lab Website](https://www.danuserlab-utsw.org/)
-
 [Software Links](https://github.com/DanuserLab/)
